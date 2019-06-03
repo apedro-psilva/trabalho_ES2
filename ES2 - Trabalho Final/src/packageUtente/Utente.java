@@ -11,36 +11,19 @@ public class Utente {
 	private int id;
 	private String nome;
 	private int idade;
-	private int altura;
 	private String profissao;
 	private RepositorioUtentes repUtentes = new RepositorioUtentes();
-	private ArrayList<Questionario> listaQuestionarios = null;
-	private ArrayList<DadosFisicos> listaDadosFisicos = null;
-	private ArrayList<HabitosAlimentares> listaHabitosAlimentares = null;
-	private ArrayList<PlanoAlimentar> listaPlanosAlimentares = null;
-	
-	Scanner input = new Scanner(System.in);
 	
 	String regexNome = "^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'\\s]+$"; 
 	String res;
 	
 	public Utente() {}
 	
-	public String novoUtente() {
+	public String novoUtente(int id, String nome, int idade, String profissao) {
 		repUtentes.iniRepositorioUtentes();
-		
-		for(int i = 0; i < repUtentes.getUtentes().size(); i++) {
-			System.out.println(repUtentes.getUtentes().get(i).getNome());
-		}
-		
-		System.out.println("\nNovo Utente");
-		setId(repUtentes.getUtentes().size() + 1);
-		
-		System.out.println(repUtentes.getUtentes().size());
-		
-		System.out.print("\nNome :");
-		setNome(input.nextLine());
-		
+		setId(id);
+		setNome(nome);
+	
 		if(repUtentes.checkUtente(nome) != null) {
 			return "Utente já existe.";
 		}
@@ -49,28 +32,19 @@ public class Utente {
 			return "Nome Inválido";
 		}
 		
-		System.out.print("\nIdade :");
-		setIdade(Integer.parseInt(input.nextLine()));
+		setIdade(idade);
 		
 		if(idade < 0 || idade > 120) {
 			return "Idade Inválida";
 		}
-		
-		System.out.print("\nAltura :");
-		setAltura(Integer.parseInt(input.nextLine()));
-		
-		if(altura < 0 || altura > 220) {
-			return "Altura Inválida";
-		}
-		
-		System.out.print("\nProfissão :");
-		setProfissao(input.nextLine());
+
+		setProfissao(profissao);
 		
 		if(!profissao.matches(regexNome)) {
 			return "Profissão Inválida";
 		}
 		repUtentes.addUtente(this);
-		return "Sucesso.";
+		return "Sucesso a criar o Utente";
 	}
 
 	public int getId() {
@@ -97,30 +71,11 @@ public class Utente {
 		this.idade = i;
 	}
 
-	public int getAltura() {
-		return this.altura;
-	}
-
-	public void setAltura(int a) {
-		this.altura = a;
-	}
-
 	public String getProfissao() {
 		return this.profissao;
 	}
 
 	public void setProfissao(String p) {
 		this.profissao = p;
-	}
-
-	public ArrayList<HabitosAlimentares> getListaHabitosAlimentares() {
-		return this.listaHabitosAlimentares;
-	}
-
-	public void addToListaHabitosAlimentares(HabitosAlimentares a) {
-		if(listaHabitosAlimentares == null) {
-			listaHabitosAlimentares = new ArrayList<HabitosAlimentares>();
-		}
-		this.listaHabitosAlimentares.add(a);
 	}
 }

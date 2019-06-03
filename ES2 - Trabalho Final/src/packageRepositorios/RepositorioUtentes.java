@@ -28,6 +28,15 @@ public class RepositorioUtentes {
 		return null;
 	}
 	
+	public Utente checkUtenteID(int id) {		
+		for(int i = 0; i < getUtentes().size(); i++) {
+			if(getUtentes().get(i).getId() == id) {
+				return getUtentes().get(i);
+			}
+		}
+		return null;
+	}
+	
 	public ArrayList<Utente> getUtentes() {
 		return utentes;
 	}
@@ -42,7 +51,6 @@ public class RepositorioUtentes {
 				System.out.print("\nID: " + utentes.get(i).getId());
 				System.out.print("\nNome: " + utentes.get(i).getNome());
 				System.out.print("\nIdade: " + utentes.get(i).getIdade());
-				System.out.print("\nAltura: " + utentes.get(i).getAltura() + "cm");
 				System.out.print("\nProfissão: " + utentes.get(i).getProfissao() + "\n");
 			}
 		}

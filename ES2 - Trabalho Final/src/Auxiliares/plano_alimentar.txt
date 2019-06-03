@@ -1,0 +1,27 @@
+Plano Alimentar Atual																																									
+Levantar	9:00																																								
+																																									
+Pequeno Almoço	10:00																																								
+		Leite Meio Gordo	50	ml																																					
+		Queijo	100	gr																																					
+Por refeição		Energia (kcal)	Energia (kJ)	Água (g)	Proteína (g)	Gordura total (g)	Total HC disponíveis (g)	Total HC expresso em monossacáridos (g)	Mono + dissacáridos (g)	Ácidos orgânicos (g)	Álcool (g)	Amido (g)	Oligossacáridos (g)	Fibra alimentar (g)	Ácidos gordos saturados (g)	Ácidos gordos monoinsaturados (g)	Ácidos gordos polinsaturados  (g)	Ácidos gordos trans (g)	Ácido linoleico (g)	Colesterol (mg)	Vit A total (equivalentes retinol) (mg)	Caroteno (mg)	vit. D (µg)	a-tocoferol (mg)	Tiamina (mg)	Riboflavina (mg)	Equivalentes de niacina (mg)	Niacina (mg)	Triptofano/60 (mg)	vit B6 (mg)	Vit. B12 (µg)	vit. C (mg)	Folatos (µg)	Cinza (g)	Na (mg)	K    (mg)	Ca (mg)	P (mg)	Mg (mg)	Fe (mg)	Zn (mg)
+																																									
+Meio da Manhã 1	11:00																																								
+																																									
+Meio da Manhã 2	12:00																																								
+																																									
+Almoço																																									
+																																									
+Meio da Tarde 1	15:00																																								
+																																									
+Meio da Tarde 2	17:00																																								
+																																									
+																																									
+Jantar	20:00																																								
+																																									
+Ceia	23:00																																								
+																																									
+																																									
+		Energia (kcal)	Energia (kJ)	Água (g)	Proteína (g)	Gordura total (g)	Total HC disponíveis (g)	Total HC expresso em monossacáridos (g)	Mono + dissacáridos (g)	Ácidos orgânicos (g)	Álcool (g)	Amido (g)	Oligossacáridos (g)	Fibra alimentar (g)	Ácidos gordos saturados (g)	Ácidos gordos monoinsaturados (g)	Ácidos gordos polinsaturados  (g)	Ácidos gordos trans (g)	Ácido linoleico (g)	Colesterol (mg)	Vit A total (equivalentes retinol) (mg)	Caroteno (mg)	vit. D (µg)	a-tocoferol (mg)	Tiamina (mg)	Riboflavina (mg)	Equivalentes de niacina (mg)	Niacina (mg)	Triptofano/60 (mg)	vit B6 (mg)	Vit. B12 (µg)	vit. C (mg)	Folatos (µg)	Cinza (g)	Na (mg)	K    (mg)	Ca (mg)	P (mg)	Mg (mg)	Fe (mg)	Zn (mg)
+																																									
+																																									
