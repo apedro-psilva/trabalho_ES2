@@ -1,10 +1,12 @@
 package packageQuestionario;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Questionario {
 	private int id;
 	private String nome = null;
+	private String sexo = null;
 	private String idade = null;
 	private String profissao = null;
 	private String motivo = null;
@@ -17,26 +19,80 @@ public class Questionario {
 	private String consumoAgua = null;
 	private HashMap<String, String> dadosQuimicosBiologicos = null;
 	
+	ArrayList<String> af = new ArrayList<String>();
+	ArrayList<String> fi = new ArrayList<String>();
+	ArrayList<String> ca = new ArrayList<String>();
+	
+	
 	public Questionario() {};
 
-	public String novoQuestionario(int id, String nome, String idade, String profissao, String motivo, String objetivos, String patologias,
+	public String novoQuestionario(int id, String nome, String sexo, String idade, String profissao, String motivo, String objetivos, String patologias,
 			String medicacao, String antecedentesFamiliares, String atividadeFisica, String funcaoIntestinal,
 			String consumoAgua, HashMap<String, String> dadosQuimicosBiologicos) {
+		
+		String regexNome = "^[A-Za-z·‡‚„ÈËÍÌÔÛÙıˆ˙ÁÒ¡¿¬√…»Õœ”‘’÷⁄«—'\\s]+$"; 
+		af.add("Sedent·rio");af.add("Moderadamente Ativo");af.add("Ativo");af.add("Muito Ativo");
+		fi.add("Normal");fi.add("Obstipado");fi.add("Diarreias");
+		ca.add("Menos de 0.5L");ca.add("0.5L a 1L");ca.add("1.5L a 2L");ca.add("Mais de 2L");
+		
 		setId(id);
+		
+		if(!nome.matches(regexNome))
+			return "Nome do Utente " + nome + " Inv·lido";
 		setNome(nome);
+		
+		if(!sexo.equals("Masculino") && !sexo.equals("Feminino"))
+			return "Sexo do Utente " + nome + " inv·lido";
+		setSexo(sexo);
+		
+		if(Integer.parseInt(idade) < 0 || Integer.parseInt(idade) >= 150)
+			return "Idade do utente " + nome + " inv·lida";
 		setIdade(idade);
+		
+		if(!profissao.matches(regexNome))
+			return "Profiss„o do Utente " + nome + " Inv·lido";
 		setProfissao(profissao);
+		
 		setMotivo(motivo);
+		
 		setObjetivos(objetivos);
+		
 		setPatologias(patologias);
+		
 		setMedicacao(medicacao);
+		
 		setAntecedentesFamiliares(antecedentesFamiliares);
+		
+		if(!af.contains(atividadeFisica))
+			return "Atividade fisica do Utente " + nome + " Inv·lida";
 		setAtividadeFisica(atividadeFisica);
+		
+		if(!fi.contains(funcaoIntestinal))
+			return "FunÁ„o Intestinal do Utente " + nome + " inv·lida";
 		setFuncaoIntestinal(funcaoIntestinal);
+		
+		if(!ca.contains(consumoAgua))
+			return "Consumo de ¡gua do Utente " + nome + " inv·lida";
 		setConsumoAgua(consumoAgua);
+		
+		if(Double.parseDouble(dadosQuimicosBiologicos.get("Colesterol")) < 0 || Double.parseDouble(dadosQuimicosBiologicos.get("Colesterol")) >= 23)
+			return "Colesterol do Utente " + nome + " inv·lido";
+		
+		if(Double.parseDouble(dadosQuimicosBiologicos.get("Creatinina")) < 0 || Double.parseDouble(dadosQuimicosBiologicos.get("Creatinina")) >= 23)
+			return "Creatinina do Utente " + nome + " inv·lido";
+		
+		if(Double.parseDouble(dadosQuimicosBiologicos.get("GlicÈmia")) < 0 || Double.parseDouble(dadosQuimicosBiologicos.get("GlicÈmia")) >= 23)
+			return "GlicÈmia do Utente " + nome + " inv·lido";
+		
+		if(Double.parseDouble(dadosQuimicosBiologicos.get("Ureia")) < 0 || Double.parseDouble(dadosQuimicosBiologicos.get("Ureia")) >= 23)
+			return "Ureia do Utente " + nome + " inv·lido";
+		
+		if(Double.parseDouble(dadosQuimicosBiologicos.get("Prob. C reativa")) < 0 || Double.parseDouble(dadosQuimicosBiologicos.get("Prob. C reativa")) >= 33)
+			return "Prob. C reativa do Utente " + nome + " inv·lido";
+		
 		setDadosQuimicosBiologicos(dadosQuimicosBiologicos);
 		
-		return "Sucesso";
+		return "Sucesso a carregar o Question·rio";
 	}
 	
 	private void setId(int i) {
@@ -53,6 +109,14 @@ public class Questionario {
 
 	private void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	public String getSexo() {
+		return sexo;
+	}
+
+	private void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
 
 	public String getIdade() {

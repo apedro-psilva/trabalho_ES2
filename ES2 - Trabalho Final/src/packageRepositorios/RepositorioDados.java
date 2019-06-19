@@ -12,9 +12,10 @@ public class RepositorioDados {
 	private static HashMap<String, HashMap<String, String>> tabelaNutricional = null;
 	private static HashMap<String, String> camposTabela = null; 
 	private static ArrayList<String> header = null;
-	private static HashMap<String, Questionario> questionarios = null;
-	private static HashMap<String, HabitosAlimentares> habitos = null;
-	private static HashMap<String, DadosFisicos> dadosFisicos = null;
+	private static HashMap<Integer, Questionario> questionarios = null;
+	private static HashMap<Integer, HabitosAlimentares> habitos = null;
+	private static HashMap<Integer, HabitosAlimentares> planos = null;
+	private static HashMap<Integer, DadosFisicos> dadosFisicos = null;
 
 	public RepositorioDados() {}
 	
@@ -24,9 +25,10 @@ public class RepositorioDados {
 			instance = new RepositorioDados();
 			tabelaNutricional = new HashMap<String, HashMap<String, String>>();
 			header = new ArrayList<String>();
-			questionarios = new HashMap<String, Questionario>();
-			habitos = new HashMap<String, HabitosAlimentares>();
-			dadosFisicos = new HashMap<String, DadosFisicos>();
+			questionarios = new HashMap<Integer, Questionario>();
+			habitos = new HashMap<Integer, HabitosAlimentares>();
+			planos = new HashMap<Integer, HabitosAlimentares>();
+			dadosFisicos = new HashMap<Integer, DadosFisicos>();
 		}
 		return instance;	
 	}
@@ -89,15 +91,30 @@ public class RepositorioDados {
 	}
 	
 	public void setHabitoAlimentar(HabitosAlimentares ha) {
-		habitos.put(Integer.toString(ha.getUser().getId()), ha);
+		habitos.put(ha.getUser().getId(), ha);
 	}
 	
 	public void setQuestionario(Questionario q) {
-		questionarios.put(Integer.toString(q.getId()), q);
+		questionarios.put(q.getId(), q);
 	}
 	
-	public void setDadosFisicos(String id, DadosFisicos df) {
+	public void setDadosFisicos(Integer id, DadosFisicos df) {
 		dadosFisicos.put(id, df);
 	}
 	
+	public DadosFisicos getDadosFisicos(Integer id) {
+		return dadosFisicos.get(id);
+	}
+	
+	public void setPlanoPrescrito(HabitosAlimentares pp) {
+		planos.put(pp.getUser().getId(), pp);
+	}
+	
+	public HabitosAlimentares getHabitosAlimentares(Integer id){
+		return habitos.get(id);
+	}
+	
+	public HabitosAlimentares getPlanosAlimentares(Integer id){
+		return planos.get(id);
+	}
 }

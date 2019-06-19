@@ -12,53 +12,35 @@ import java.util.HashMap;
 import com.opencsv.CSVWriter;
 
 public class Escritor {
-	File f = null;
+	File f1 = null, f2 = null;
 	FileWriter writer = null;
 	CSVWriter csvw = null;
 	private static Escritor instance = null;
-	
+
 	public Escritor() {}
-	
+
 	public Escritor iniEscritor() {
 		if(instance == null) {
 			instance = new Escritor();
 		}
 		return instance;
 	}
-	
-	public boolean escreveFicheiro(String tipo, String filePath, ArrayList<String> header, HashMap<Integer, String[]> dados) throws IOException {
+
+	public boolean escreveFicheiro(String tipo, int id, ArrayList<String> header, HashMap<Integer, String[]> dados) throws IOException {
 		DateFormat df = new SimpleDateFormat("dd_MM_yyyy_HH_mm");
-		switch(tipo) {
-		case "HA-I":{
-			if(filePath == null) {
-				Date d = new Date();
-				
-				f = new File("src/Inputs/HA_" + df.format(d) + ".csv");
-			} else {
-				f = new File(filePath);
-			}
-			break;
-		}
-		default:{
-			if(filePath == null) {
-				Date d = new Date();
-				
-				f = new File("src/BaseDados/HA_" + df.format(d) + ".csv");
-			} else {
-				f = new File(filePath);
-			}
-			break;
-		}
-		}
-		
+
+		Date d = new Date();
+
+		f1 = new File("src/Outputs/"+ tipo +"_" + id + "_" + df.format(d) + ".csv");
+
 		try {
-			writer = new FileWriter(f);
+			writer = new FileWriter(f1);
 			csvw = new CSVWriter(writer);
-			
+
 			if(!header.isEmpty()) {
 				csvw.writeNext(header.toArray(new String[0]));
 			}
-		
+
 			csvw.writeAll(dados.values());
 		}
 		catch(Exception e) {

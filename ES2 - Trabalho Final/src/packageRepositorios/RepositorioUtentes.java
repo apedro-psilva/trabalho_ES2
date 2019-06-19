@@ -41,8 +41,14 @@ public class RepositorioUtentes {
 		return utentes;
 	}
 
-	public void addUtente(Utente u) {
-		utentes.add(u);
+	public boolean addUtente(Utente u) {
+		try {
+			utentes.add(u);
+			return true;
+		}
+		catch(Exception e) {
+			return false;
+		}
 	}
 	
 	public void printUtente(int id) {
@@ -50,8 +56,10 @@ public class RepositorioUtentes {
 			if(utentes.get(i).getId() == id) {
 				System.out.print("\nID: " + utentes.get(i).getId());
 				System.out.print("\nNome: " + utentes.get(i).getNome());
+				System.out.print("\nSexo: " + utentes.get(i).getSexo());
 				System.out.print("\nIdade: " + utentes.get(i).getIdade());
 				System.out.print("\nProfissão: " + utentes.get(i).getProfissao() + "\n");
+				
 			}
 		}
 	}

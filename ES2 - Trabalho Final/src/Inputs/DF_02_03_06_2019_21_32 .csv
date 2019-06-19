@@ -1,10 +1,13 @@
 Peso,89
 Altura,187
 IMC,24
-B.F,324
+B.F,75
 Gordura visceral,10
-Musculo,99999999999
+Musculo,99
 H2O,25
-Osso,35
+Osso,2
 Idade Metabolica,25
 Metabolismo Basal,2
+Fator Atividade,1.25
+Fator Lesão,1.6
+Fator Térmico,1.3

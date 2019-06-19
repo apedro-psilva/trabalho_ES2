@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import packageRepositorios.RepositorioUtentes;
 import packageUtente.Utente;
 
 public class HabitosAlimentares {
@@ -16,18 +17,25 @@ public class HabitosAlimentares {
 
 	public HabitosAlimentares() {}
 	
-	public String novoHabitoAlimentar(Utente user, String h, ArrayList<Refeicao> r) {
-		refeicoes = new ArrayList<Refeicao>();
+	public String novoHabitoAlimentar(Utente user, String d, String h, ArrayList<Refeicao> r) {
+		RepositorioUtentes ru = new RepositorioUtentes();
+		ru.iniRepositorioUtentes();
+		
+		if(r.isEmpty())
+			return "Hábito Alimentar do Utente " + user.getNome() + " do dia " + d + " sem refeições. Ignorado.";
+		setRefeicoes(r);
 
+		if(ru.checkUtenteID(user.getId()) == null)
+			return "Hábito Alimentar para o Utente " + user.getNome() + " do dia " + d + " não existe. Ignorado.";
+		
 		setUser(user);
 
 		try {
-			Date dat = new Date();
+			Date dat = dateFormat.parse(d);
 			setData(dateFormat.format(dat));
 		}
 		catch(Exception e) {
-			System.out.println("Data não está no formato DD/MM/YYYY.");
-			return "NSucesso";
+			return "Data do Hábito Alimentar do Utente " + user.getNome() + " do dia " + d + " não está no formato DD/MM/YYYY. Ignorado.";
 		}
 
 		try {
@@ -38,8 +46,7 @@ public class HabitosAlimentares {
 			setHoraLevantar(timeFormat.format(dat));
 		}
 		catch(Exception e) {
-			System.out.println("Hora não está no formato HH:MM.");
-			return "NSucesso";
+			return "Hora de Levantar do Hábito Alimentar do Utente " + user.getNome() + " do dia " + d + " nao está no formato HH:MM. Ignorado.";
 
 		}
 		return "Sucesso a criar o Habito Alimentar";
@@ -64,6 +71,10 @@ public class HabitosAlimentares {
 	public ArrayList<Refeicao> getRefeicoes() {
 		return this.refeicoes;
 	}
+	
+	private void setRefeicoes(ArrayList<Refeicao> r) {
+		this.refeicoes = new ArrayList<Refeicao>(r);
+	}	
 
 	public Utente getUser() {
 		return this.user;
@@ -71,5 +82,19 @@ public class HabitosAlimentares {
 
 	private void setUser(Utente u) {
 		this.user = u;
+	}
+	
+	public ArrayList<Double> nutrientesDia(){
+		ArrayList<Double> resultado = null;
+		
+		for(Refeicao r: refeicoes) 
+			if(resultado == null)
+				resultado = new ArrayList<Double>(r.somaNutrientesRefeicao());
+			else {
+				for(int i = 0; i < resultado.size(); i++) 
+					resultado.set(i, resultado.get(i) + r.somaNutrientesRefeicao().get(i));
+			}
+
+		return resultado;
 	}
 }
