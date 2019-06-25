@@ -11,7 +11,7 @@ public class Utente {
 	private String profissao;
 	private RepositorioUtentes repUtentes = new RepositorioUtentes();
 	
-	String regexNome = "^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'\\s]+$"; 
+	String regexNome = "^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'\\s]+$";
 	
 	public Utente() {}
 	
@@ -19,9 +19,9 @@ public class Utente {
 		repUtentes.iniRepositorioUtentes();
 		
 		if(repUtentes.checkUtenteID(id) != null) 
-			return "Utente já existe.";
+			return "Utente já existe";
 		
-		if(!setId(id))
+		if(!setId(id)) 
 			return "ID Inválido";
 		
 		if(!setNome(nome)) 

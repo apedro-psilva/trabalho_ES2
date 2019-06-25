@@ -16,17 +16,6 @@ public class RepositorioUtentes {
 		}
 		return instance;
 	}
-
-	public Utente checkUtente(String nome) {		
-		for(int i = 0; i < getUtentes().size(); i++) {
-			if(getUtentes().get(i).getNome().equals(nome)) {
-				System.out.println(getUtentes().get(i));
-				return getUtentes().get(i);
-			}
-		}
-		
-		return null;
-	}
 	
 	public Utente checkUtenteID(int id) {		
 		for(int i = 0; i < getUtentes().size(); i++) {

@@ -16,7 +16,7 @@ public class Produto {
 		rd.iniRepositorioDados();
 		
 		int cod = Integer.parseInt(c.substring(c.length() - 3));
-		
+
 		if(cod > rd.getTabela().size() || cod <= 0)
 			return "Código do produto " + c + " inválido.";
 			

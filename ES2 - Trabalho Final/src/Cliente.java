@@ -1,6 +1,9 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import exceptions.EmptyFolderException;
+import exceptions.MissingFilesException;
 import gestor.*;
 import packageHabitosAlimentares.HabitosAlimentares;
 import packageHabitosAlimentares.Produto;
@@ -9,7 +12,7 @@ import packageRepositorios.*;
 import packageUtente.Utente;
 
 public class Cliente {
-	public static void main(String args[]) throws IOException{
+	public static void main(String args[]) throws IOException, EmptyFolderException, MissingFilesException{
 		RepositorioDados rep = new RepositorioDados();
 		RepositorioUtentes repU = new RepositorioUtentes();
 		rep.iniRepositorioDados();
@@ -21,21 +24,13 @@ public class Cliente {
 		Leitor l = new Leitor();
 		l.iniLeitor();
 
-		l.tabelaNutricional();
+		System.out.println(l.tabelaNutricional("src/Auxiliares/tabela_nutricional.txt"));
 
+		//rep.printTabela();
 		//HashMap<String, String> info = rep.getAndPrintInfoCodigo("IS795");
 
-		l.carregaFicheirosCSV();
-		
-		
-		
-		Utente u2 = new Utente();
-		System.out.println(u2.setSexo("Masculino"));
-//		for(Utente u: repU.getUtentes())
-//			repU.printUtente(u.getId());
-		
-	
-		
+		l.lePasta("src/Inputs");
+
 		for(Utente u: repU.getUtentes()) {
 			HashMap<Integer, String[]> dadosHAOutput = new HashMap<Integer, String[]>();
 			HashMap<Integer, String[]> dadosPPOutput = new HashMap<Integer, String[]>();
@@ -45,7 +40,7 @@ public class Cliente {
 				geraDados(1, u.getId(), rep.getPlanosAlimentares(u.getId()), dadosPPOutput);
 			}
 		}
-	}
+	} 
 
 
 	public static void geraDados(int tipo, int id, HabitosAlimentares ha, HashMap<Integer, String[]> arr) throws IOException {

@@ -15,6 +15,7 @@ import packageUtente.DadosFisicos;
 import packageUtente.Utente;
 import packageHabitosAlimentares.*;
 import packageQuestionario.Questionario;
+import exceptions.*;
 
 public class Leitor {
 	private File f = null;
@@ -31,13 +32,15 @@ public class Leitor {
 		return instance;
 	}
 
-	public boolean tabelaNutricional() throws IOException {
+	public String tabelaNutricional(String tabelaNutricional) throws IOException {
 		String linha = null;
-		f = new File("src/Auxiliares/tabela_nutricional.txt");
-		RepositorioDados rep = new RepositorioDados();
-		rep.iniRepositorioDados();
 
 		try {
+			System.out.println("A ler " + tabelaNutricional);
+			f = new File(tabelaNutricional);
+			RepositorioDados rep = new RepositorioDados();
+			rep.iniRepositorioDados();
+
 			buff = new BufferedReader(new FileReader(f));
 
 			while((linha = buff.readLine())!= null) {
@@ -45,189 +48,92 @@ public class Leitor {
 				ArrayList<String> l = new ArrayList<String>();
 
 				for(String c: linha.split("\t")) {
-					if(c.equals("")) {
+					if(c.equals("") || c.length() == 0) {
 						ignora = 1;
 						break;
 					}
 					else
 						l.add(c);
 				}
-				if(ignora == 0)
+				if(ignora == 0) 
 					rep.setLinhaTabela(l);
+					
 			}
 			buff.close();
-			return true;
+			return "Tabela Nutricional Carregada com Sucesso";
 		}
 		catch (FileNotFoundException e) {
-			System.out.println("O ficheiro que tentou abrir não existe: " + e);
-			buff.close();
-			return false;
+			return "O ficheiro que tentou abrir não existe";
+		}
+		catch (NullPointerException e) {
+			return "Não foi fornecido nenhum ficheiro";
 		}
 		catch (IOException e) {
-			System.out.println("Erro a ler o ficheiro: " + e);
-			buff.close();
-			return false;
+			return "Erro a ler o ficheiro";
 		}
 	}
 
-	public boolean carregaFicheirosCSV() throws IOException {
-		File folder = new File("src/Inputs");
-		File[] list = folder.listFiles();
+	public String lePasta(String pasta) throws IOException, EmptyFolderException, MissingFilesException {
 		String fileQ = null, fileHA = null, fileDF = null, filePP = null;
-		ArrayList<String> users = new ArrayList<String>();
+		System.out.println("A ler pasta " + pasta);
 
-		if(list.length > 0) {
-			for(int i = 0; i < list.length; i++) {
-				String user = list[i].getName().split("_")[1];
-				if(!users.contains(user)) {
-					
-					try {		
-						// verifica se existem os 3 ficheiros necessarios para correr o programa.
-						// caso encontre o habito alimentar primeiro
-						if(list[i].getName().split("_")[0].equals("HA") && list[i].getName().split("_")[1].equals(user)) {
-							fileHA = list[i].getName();
+		try {
+			File folder = new File(pasta);
+			File[] list = folder.listFiles();
+			if(list.length > 0) {
+				// Verifica se os ficheiro necessario estao presentes na pasta
+				for(int i = 0; i < list.length; i++) {
 
-							for(int j = i +1; j< list.length; j++) {
-								if(list[j].getName().split("_")[0].equals("Q") && list[j].getName().split("_")[1].equals(user))
-									fileQ = list[j].getName();
+					if(list[i].getName().split("_")[0].equals("DF")) 
+						fileDF = list[i].getName();
 
-								if(list[j].getName().split("_")[0].equals("DF") && list[j].getName().split("_")[1].equals(user))
-									fileDF = list[j].getName();
-								
-								if(list[j].getName().split("_")[0].equals("PP") && list[j].getName().split("_")[1].equals(user))
-									filePP = list[j].getName();
-							}
+					if(list[i].getName().split("_")[0].equals("HA"))
+						fileHA = list[i].getName();
 
-							if(fileQ != null && fileHA != null && fileDF != null && filePP != null) {
-								if(leQuestionario("src/Inputs/" + fileQ))
-									if(leDadosFisicos("src/Inputs/" + fileDF))
-										if(leHabitoAlimentar("src/Inputs/" + fileHA))
-											if(leHabitoAlimentar("src/Inputs/" + filePP))
+					if(list[i].getName().split("_")[0].equals("Q")) 
+						fileQ = list[i].getName();	
 
-								fileQ = null;
-								fileHA = null;
-								fileDF = null;
-								filePP = null;
-							} else {
-								System.out.println("Faltam ficheiros para executar o programa corretamente para o Utente " + list[i].getName().split("_")[1]);
-							}
-							users.add(list[i].getName().split("_")[1]);
-						}
-						// caso encontre o questionario primeiro
-						else if(list[i].getName().split("_")[0].equals("Q") && list[i].getName().split("_")[1].equals(user)) {
-							fileQ = list[i].getName();
-							
-							for(int j = i+1; j < list.length; j++) {
-								if(list[j].getName().split("_")[0].equals("HA") && list[j].getName().split("_")[1].equals(user))
-									fileHA = list[j].getName();
-
-								if(list[j].getName().split("_")[0].equals("DF") && list[j].getName().split("_")[1].equals(user))
-									fileDF = list[j].getName();
-							
-								if(list[j].getName().split("_")[0].equals("PP") && list[j].getName().split("_")[1].equals(user))
-									filePP = list[j].getName();
-							}
-
-							if(fileQ != null && fileHA != null && fileDF != null && filePP != null) {
-								if(leQuestionario("src/Inputs/" + fileQ))
-									if(leDadosFisicos("src/Inputs/" + fileDF))
-										if(leHabitoAlimentar("src/Inputs/" + fileHA))
-											if(leHabitoAlimentar("src/Inputs/" + filePP))
-
-								fileQ = null;
-								fileHA = null;
-								fileDF = null;
-								filePP = null;
-							} else {
-								System.out.println("Faltam ficheiros para executar o programa corretamente para o Utente " + list[i].getName().split("_")[1]);
-							}
-							users.add(list[i].getName().split("_")[1]);
-						}
-						// caso encontre os dados fisicos primeiro
-						else if(list[i].getName().split("_")[0].equals("DF") && list[i].getName().split("_")[1].equals(user)) {
-							fileDF = list[i].getName();
-							
-							for(int j = i+1; j < list.length; j++) {
-								if(list[j].getName().split("_")[0].equals("HA") && list[j].getName().split("_")[1].equals(user))
-									fileHA = list[j].getName();
-									
-								if(list[j].getName().split("_")[0].equals("Q") && list[j].getName().split("_")[1].equals(user)) 
-									fileQ = list[j].getName();	
-								
-								if(list[j].getName().split("_")[0].equals("PP") && list[j].getName().split("_")[1].equals(user))
-									filePP = list[j].getName();
-							}
-
-							if(fileQ != null && fileHA != null && fileDF != null && filePP != null) {
-								if(leQuestionario("src/Inputs/" + fileQ))
-									if(leDadosFisicos("src/Inputs/" + fileDF))
-										if(leHabitoAlimentar("src/Inputs/" + fileHA))
-											if(leHabitoAlimentar("src/Inputs/" + filePP))
-
-								fileQ = null;
-								fileHA = null;
-								fileDF = null;
-								filePP = null;
-							} else {
-								System.out.println("Faltam ficheiros para executar o programa corretamente para o Utente " + list[i].getName().split("_")[1]);
-							}
-							users.add(list[i].getName().split("_")[1]);
-						}
-						// caso encontre o plano prescrito primeiro
-						else if(list[i].getName().split("_")[0].equals("PP") && list[i].getName().split("_")[1].equals(user)) {
-							filePP = list[i].getName();
-							
-							for(int j = i+1; j < list.length; j++) {
-								if(list[j].getName().split("_")[0].equals("HA") && list[j].getName().split("_")[1].equals(user))
-									fileHA = list[j].getName();
-									
-								if(list[j].getName().split("_")[0].equals("Q") && list[j].getName().split("_")[1].equals(user)) 
-									fileQ = list[j].getName();	
-								
-								if(list[j].getName().split("_")[0].equals("DF") && list[j].getName().split("_")[1].equals(user))
-									fileDF = list[j].getName();
-							}
-
-							if(fileQ != null && fileHA != null && fileDF != null && filePP != null) {
-								if(leQuestionario("src/Inputs/" + fileQ))
-									if(leDadosFisicos("src/Inputs/" + fileDF))
-										if(leHabitoAlimentar("src/Inputs/" + fileHA))
-											if(leHabitoAlimentar("src/Inputs/" + filePP))
-
-								fileQ = null;
-								fileHA = null;
-								fileDF = null;
-								filePP = null;
-							} else {
-								System.out.println("Faltam ficheiros para executar o programa corretamente para o Utente " + list[i].getName().split("_")[1]);
-							}
-							users.add(list[i].getName().split("_")[1]);
-						}
-					}
-					catch(Exception e) {
-						System.out.println("Erro a carregar: " + e);
-						for(StackTraceElement s: e.getStackTrace()) {
-							System.out.println("\t" + s);
-						}
-						System.out.println("\n");
-							
-					}
+					if(list[i].getName().split("_")[0].equals("PP"))
+						filePP = list[i].getName();
 				}
+				
+				if(fileQ != null && fileHA != null && fileDF != null && filePP != null) {
+					if(leQuestionario("src/Inputs/" + fileQ))
+						if(leDadosFisicos("src/Inputs/" + fileDF))
+							if(leHabitoAlimentar("src/Inputs/" + fileHA))
+								if(leHabitoAlimentar("src/Inputs/" + filePP))
+									fileQ = null; fileHA = null; fileDF = null; filePP = null;
+									
+				} else 
+					throw new MissingFilesException(fileQ, fileHA, fileDF, filePP);
+				
+				return "Ficheiros CSV carregados com sucesso da diretoria.";
 			}
-			return true;
+			else {
+				throw new EmptyFolderException();
+			}
 		}
-		else {
-			System.out.println("Não há ficheiros na pasta \"src/Inputs\".");
-			return false;
+		catch (EmptyFolderException e) {
+			return e.mensagem;
+		}
+		catch (MissingFilesException e) {
+			return e.mensagem;
+		}
+		catch (NullPointerException e) {
+			System.out.println("Não foi fornecido nenhuma diretoria: " + e);
+			return "Não foi fornecida nenhuma diretoria";
+		}
+		catch (IOException e) {
+			System.out.println("Erro a ler a diretoria: " + e);
+			return "Erro a ler a diretoria";
 		}
 	}
 
-	private boolean leHabitoAlimentar(String fileName) throws IOException {
+	public boolean leHabitoAlimentar(String fileName) throws IOException {
 		RepositorioDados rep = new RepositorioDados();
 		rep.iniRepositorioDados();
 
 		HabitosAlimentares ha = new HabitosAlimentares();
-		f = new File(fileName);
 		String linha = null;
 		String hora = null;
 		String data = null;
@@ -239,14 +145,15 @@ public class Leitor {
 		RepositorioUtentes repU = new RepositorioUtentes();
 		repU.iniRepositorioUtentes();
 
-		System.out.println("A ler o ficheiro " + fileName + " ...");
-
 		Utente u = new Utente();
-		u = repU.checkUtenteID(Integer.parseInt(fileName.split("_")[1]));
-		
-		data = fileName.split("_")[2] + "/" + fileName.split("_")[3] + "/" + fileName.split("_")[4];
 
 		try {
+			System.out.println("A ler o ficheiro " + fileName + " ...");
+			f = new File(fileName);
+			u = repU.checkUtenteID(Integer.parseInt(fileName.split("_")[1]));
+
+			data = fileName.split("_")[2] + "/" + fileName.split("_")[3] + "/" + fileName.split("_")[4];
+
 			String ref = null;
 			String horaRef = null;
 
@@ -268,7 +175,7 @@ public class Leitor {
 							} else {
 								System.out.println(r.novaRefeicao(ref, horaRef, produtos));
 							}
-								
+
 						}
 						ref = campo[0];
 						horaRef = campo[1];
@@ -282,7 +189,7 @@ public class Leitor {
 							else {
 								System.out.println(p.novoProduto(campo[2], campo[3], campo[4]));
 							}
-								
+
 						}
 					} catch(IndexOutOfBoundsException e) {}
 				}	
@@ -295,18 +202,22 @@ public class Leitor {
 					produtos.clear();
 				} else 
 					System.out.println(r.novaRefeicao(ref, horaRef, produtos));
-					
-				
+
 			}
 			buff.close();
 		}
+		
 		catch (FileNotFoundException e) {
 			System.out.println("O ficheiro que tentou abrir não existe: " + e);
-			buff.close();
+			return false;
+		}
+		catch (NullPointerException e) {
+			System.out.println("Não foi fornecido nenhum ficheiro de Habito Alimentar: " + e);
+			return false;
 		}
 		catch (IOException e) {
 			System.out.println("Erro a ler o ficheiro: " + e);
-			buff.close();
+			return false;
 		}
 
 		if(ha.novoHabitoAlimentar(u, data, hora, refeicoes).equals("Sucesso a criar o Habito Alimentar")) {
@@ -315,33 +226,35 @@ public class Leitor {
 
 			else if(fileName.split("/")[2].split("_")[0].equals("HA")) 
 				rep.setHabitoAlimentar(ha);
-				
+
 		} else {
 			System.out.println(ha.novoHabitoAlimentar(u, data, hora, refeicoes));
 			return false;
 		}
-		System.out.println("Sucesso a ler Habitos Alimentares\n");
+		if(fileName.split("/")[2].split("_")[0].equals("PP"))
+			System.out.println("Sucesso a ler Plano Prescrito\n");
+		else if(fileName.split("/")[2].split("_")[0].equals("HA")) 
+			System.out.println("Sucesso a ler Habitos Alimentares\n");
+		
 		return true;
-
 	}
 
-	private boolean leQuestionario(String fileName) throws IOException {
+	public boolean leQuestionario(String fileName) throws IOException {
 		RepositorioDados rep = new RepositorioDados();
 		rep.iniRepositorioDados();
 
 		Questionario q = new Questionario();
-		f = new File(fileName);
 		String linha = null;
 		ArrayList<String> valores = new ArrayList<String>();
 
 		RepositorioUtentes repU = new RepositorioUtentes();
 		repU.iniRepositorioUtentes();
 
-		System.out.println("A ler o ficheiro " + fileName + " ...");
-
-
 		HashMap<String, String> dados = new HashMap<String, String>();
-		try {				
+		try {	
+			f = new File(fileName);
+			System.out.println("A ler o ficheiro " + fileName + " ...");
+
 			buff = new BufferedReader(new FileReader(f));
 			String[] d = {"Colesterol","Glicémia","Ureia","Creatinina","Prob. C reativa"};
 			int skip = 0;
@@ -374,36 +287,38 @@ public class Leitor {
 				System.out.println(u.novoUtente(Integer.parseInt(fileName.split("_")[1]), q.getNome(), q.getSexo(), Integer.parseInt(q.getIdade()), q.getProfissao()));
 				return false;
 			}
-				
+
 		} else {
 			System.out.println(q.novoQuestionario(Integer.parseInt(fileName.split("_")[1]), valores.get(0), valores.get(1), valores.get(2), valores.get(3), valores.get(4), valores.get(5), valores.get(6), valores.get(7), valores.get(8), valores.get(9), valores.get(10), valores.get(11), dados));
 			return false;
 		}
-			
+
 		rep.setQuestionario(q);
 		System.out.println("Sucesso a ler Questionario\n");
 		return true;
 	}
 
-	private boolean leDadosFisicos(String fileName) throws IOException {
+	public boolean leDadosFisicos(String fileName) throws IOException {
 		RepositorioDados rep = new RepositorioDados();
 		rep.iniRepositorioDados();
 
 		DadosFisicos df = new DadosFisicos();
-		f = new File(fileName);
+
 		String linha = null;
 		ArrayList<String> valores = new ArrayList<String>();
 
 		RepositorioUtentes repU = new RepositorioUtentes();
 		repU.iniRepositorioUtentes();
 
-		System.out.println("A ler o ficheiro " + fileName + " ...");
+		try {	
+			System.out.println("A ler o ficheiro " + fileName + " ...");
 
-		try {				
+			f = new File(fileName);
+
 			buff = new BufferedReader(new FileReader(f));
-			
+
 			while((linha = buff.readLine())!= null) { 
-					valores.add(linha.split(",")[1]);
+				valores.add(linha.split(",")[1]);
 			}			
 			buff.close();
 		}
@@ -420,7 +335,7 @@ public class Leitor {
 			System.out.println(df.novoDadosFisicos(valores.get(0), valores.get(1), valores.get(2), valores.get(3), valores.get(4), valores.get(5), valores.get(6), valores.get(7), valores.get(8), valores.get(9), valores.get(10), valores.get(11), valores.get(12)) + "\n");
 			return false;
 		}
-		
+
 		rep.setDadosFisicos(Integer.parseInt(fileName.split("_")[1]), df);
 		System.out.println("Sucesso a ler Dados Fisicos\n");
 		return true;
