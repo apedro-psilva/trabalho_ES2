@@ -11,22 +11,22 @@ public class MissingFilesException extends Exception{
 		if(fileQ == null)
 			tipos.add("Questionário");
 		
-		if(fileHA == null)
-			tipos.add("Hábitos Alimentares");
-		
 		if(fileDF == null)
 			tipos.add("Dados Fisicos");
+		
+		if(fileHA == null)
+			tipos.add("Hábitos Alimentares");
 		
 		if(filePP == null)
 			tipos.add("Plano Prescrito");
 		
 		if(tipos.size() == 1)
-			mensagem = tipos.get(0) + " não existem.";
+			mensagem = tipos.get(0) + " não existe";
 		else {
 			for(String s: tipos) {
 				mensagem += s + " ";
 			}
-			mensagem += " não existem.";
+			mensagem += "não existem";
 		}
 		
 		System.out.println(mensagem);

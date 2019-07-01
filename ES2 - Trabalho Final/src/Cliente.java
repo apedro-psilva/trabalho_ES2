@@ -29,17 +29,19 @@ public class Cliente {
 		//rep.printTabela();
 		//HashMap<String, String> info = rep.getAndPrintInfoCodigo("IS795");
 
-		l.lePasta("src/Inputs");
-
-		for(Utente u: repU.getUtentes()) {
-			HashMap<Integer, String[]> dadosHAOutput = new HashMap<Integer, String[]>();
-			HashMap<Integer, String[]> dadosPPOutput = new HashMap<Integer, String[]>();
-			
-			if(rep.getHabitosAlimentares(u.getId()) != null && rep.getPlanosAlimentares(u.getId()) != null) {
-				geraDados(0, u.getId(), rep.getHabitosAlimentares(u.getId()), dadosHAOutput);
-				geraDados(1, u.getId(), rep.getPlanosAlimentares(u.getId()), dadosPPOutput);
-			}
-		}
+			l.lePasta("src/Nao_Existe");
+		
+		
+//
+//		for(Utente u: repU.getUtentes()) {
+//			HashMap<Integer, String[]> dadosHAOutput = new HashMap<Integer, String[]>();
+//			HashMap<Integer, String[]> dadosPPOutput = new HashMap<Integer, String[]>();
+//			
+//			if(rep.getHabitosAlimentares(u.getId()) != null && rep.getPlanosAlimentares(u.getId()) != null) {
+//				geraDados(0, u.getId(), rep.getHabitosAlimentares(u.getId()), dadosHAOutput);
+//				geraDados(1, u.getId(), rep.getPlanosAlimentares(u.getId()), dadosPPOutput);
+//			}
+//		}
 	} 
 
 

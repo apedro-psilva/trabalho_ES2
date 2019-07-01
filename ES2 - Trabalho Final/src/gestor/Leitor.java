@@ -34,7 +34,7 @@ public class Leitor {
 
 	public String tabelaNutricional(String tabelaNutricional) throws IOException {
 		String linha = null;
-
+		
 		try {
 			System.out.println("A ler " + tabelaNutricional);
 			f = new File(tabelaNutricional);
@@ -121,7 +121,7 @@ public class Leitor {
 		}
 		catch (NullPointerException e) {
 			System.out.println("Não foi fornecido nenhuma diretoria: " + e);
-			return "Não foi fornecida nenhuma diretoria";
+			return "Não foi fornecida diretoria/diretoria não existe";
 		}
 		catch (IOException e) {
 			System.out.println("Erro a ler a diretoria: " + e);

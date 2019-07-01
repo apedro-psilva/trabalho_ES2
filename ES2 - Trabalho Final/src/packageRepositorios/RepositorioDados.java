@@ -25,7 +25,7 @@ public class RepositorioDados {
 
 	public RepositorioDados() {
 		for(String s : temp) {
-			maxMin = new HashMap<String,String>();
+			maxMin = new HashMap<String,String>(); 
 			if(s.equals("Código")) {
 				maxMin.put("min", "001");
 				maxMin.put("max", "999");
