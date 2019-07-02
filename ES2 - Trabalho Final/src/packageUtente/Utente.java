@@ -107,7 +107,7 @@ public class Utente {
 	}
 	
 	public double getTMB(){
-		RepositorioDados rep = new RepositorioDados();
+		RepositorioDados rep = RepositorioDados.iniRepositorioDados();
 		rep.iniRepositorioDados();
 		double resultado = 0;
 		double pe = Double.parseDouble((rep.getDadosFisicos(this.getId()).getPeso()));
@@ -122,7 +122,7 @@ public class Utente {
 	}
 	
 	public double getHarrisBenedict() {
-		RepositorioDados rep = new RepositorioDados();
+		RepositorioDados rep = RepositorioDados.iniRepositorioDados();
 		rep.iniRepositorioDados();
 		
 		return getTMB() * Double.parseDouble(rep.getDadosFisicos(this.getId()).getFatorAtividade()) * Double.parseDouble(rep.getDadosFisicos(this.getId()).getFatorLesao()) * Double.parseDouble(rep.getDadosFisicos(this.getId()).getFatorTermico());

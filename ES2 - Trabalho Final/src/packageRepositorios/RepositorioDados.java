@@ -23,7 +23,7 @@ public class RepositorioDados {
 	ArrayList<String> temp = new ArrayList<String>(Arrays.asList("Código","PRODUTO","Energia (kcal)","Energia (kJ)","Água (g)","Proteína (g)","Gordura total (g)","Total HC disponíveis (g)","Total HC expresso em monossacáridos (g)","Mono + dissacáridos (g)","Ácidos orgânicos (g)","Álcool (g)","Amido (g)","Oligossacáridos (g)","Fibra alimentar (g)","Ácidos gordos saturados (g)","Ácidos gordos monoinsaturados (g)","Ácidos gordos polinsaturados  (g)","Ácidos gordos trans (g)","Ácido linoleico (g)","Colesterol (mg)","Retinol (vit. A total) (mg)","Vit A total (equivalentes retinol) (mg)","Caroteno (mg)","vit. D (µg)","a-tocoferol (mg)","Tiamina (mg)","Riboflavina (mg)","Equivalentes de niacina (mg)","Niacina (mg)","Triptofano/60 (mg)","vit B6 (mg)","Vit. B12 (µg)","vit. C (mg)","Folatos (µg)","Cinza (g)","Na (mg)","K    (mg)","Ca (mg)","P (mg)","Mg (mg)","Fe (mg)","Zn (mg)"));
 	HashMap<String, String> maxMin = null;
 
-	public RepositorioDados() {
+	private RepositorioDados() {
 		for(String s : temp) {
 			maxMin = new HashMap<String,String>(); 
 			if(s.equals("Código")) {
@@ -44,7 +44,7 @@ public class RepositorioDados {
 	}
 
 	// Singleton
-	public RepositorioDados iniRepositorioDados() {
+	public static RepositorioDados iniRepositorioDados() {
 		if(instance == null) {
 			instance = new RepositorioDados();
 			tabelaNutricional = new HashMap<String, HashMap<String, String>>();

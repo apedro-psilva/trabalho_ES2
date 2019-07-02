@@ -26,9 +26,7 @@ public class Questionario {
 	
 	public Questionario() {};
 
-	public String novoQuestionario(int id, String nome, String sexo, String idade, String profissao, String motivo, String objetivos, String patologias,
-			String medicacao, String antecedentesFamiliares, String atividadeFisica, String funcaoIntestinal,
-			String consumoAgua, HashMap<String, String> dadosQuimicosBiologicos) {
+	public String novoQuestionario(int id,HashMap<String, String> dados) {
 		
 		String regexNome = "^[A-Za-z·‡‚„ÈËÍÌÔÛÙıˆ˙ÁÒ¡¿¬√…»Õœ”‘’÷⁄«—'\\s]+$"; 
 		af.add("Sedent·rio");af.add("Moderadamente Ativo");af.add("Ativo");af.add("Muito Ativo");
@@ -36,62 +34,81 @@ public class Questionario {
 		ca.add("Menos de 0.5L");ca.add("0.5L a 1L");ca.add("1.5L a 2L");ca.add("Mais de 2L");
 		
 		setId(id);
+		System.out.println(dados);
+		if(!dados.get("Nome").matches(regexNome))
+			return "Nome do Utente " + dados.get("Nome") + " Inv·lido";
+		setNome(dados.get("Nome"));
 		
-		if(!nome.matches(regexNome))
-			return "Nome do Utente " + nome + " Inv·lido";
-		setNome(nome);
+		System.out.println("Nome");
 		
-		if(!sexo.equals("Masculino") && !sexo.equals("Feminino"))
-			return "Sexo do Utente " + nome + " inv·lido";
-		setSexo(sexo);
+		if(!dados.get("Sexo").equals("Masculino") && !dados.get("Sexo").equals("Feminino"))
+			return "Sexo do Utente " + dados.get("Nome") + " inv·lido";
+		setSexo(dados.get("Sexo"));
 		
-		if(Integer.parseInt(idade) < 0 || Integer.parseInt(idade) >= 150)
-			return "Idade do utente " + nome + " inv·lida";
-		setIdade(idade);
+		System.out.println(dados.get("Idade"));
 		
-		if(!profissao.matches(regexNome))
-			return "Profiss„o do Utente " + nome + " Inv·lido";
-		setProfissao(profissao);
+		if(Integer.parseInt(dados.get("Idade")) < 0 || Integer.parseInt(dados.get("Idade")) >= 150)
+			return "Idade do utente " + dados.get("Idade");
+		setIdade(dados.get("Idade"));
+		System.out.println("idade");
 		
-		setMotivo(motivo);
+		if(!dados.get("Profiss„o").matches(regexNome))
+			return "Profiss„o do Utente " + dados.get("Nome") + " Inv·lido";
+		setProfissao(dados.get("Profiss„o"));
 		
-		setObjetivos(objetivos);
+		setMotivo(dados.get("Motivo"));
 		
-		setPatologias(patologias);
+		setObjetivos(dados.get("Objectivo"));
 		
-		setMedicacao(medicacao);
+		setPatologias(dados.get("Patologias"));
 		
-		setAntecedentesFamiliares(antecedentesFamiliares);
+		setMedicacao(dados.get("MedicaÁ„o"));
 		
-		if(!af.contains(atividadeFisica))
-			return "Atividade fisica do Utente " + nome + " Inv·lida";
-		setAtividadeFisica(atividadeFisica);
+		setAntecedentesFamiliares(dados.get("Antecedentes Familiares"));
 		
-		if(!fi.contains(funcaoIntestinal))
-			return "FunÁ„o Intestinal do Utente " + nome + " inv·lida";
-		setFuncaoIntestinal(funcaoIntestinal);
 		
-		if(!ca.contains(consumoAgua))
-			return "Consumo de ¡gua do Utente " + nome + " inv·lida";
-		setConsumoAgua(consumoAgua);
+		if(!af.contains(dados.get("Atividade Fisica")))
+			return "Atividade fisica do Utente " + dados.get("Nome") + " Inv·lida";
+		setAtividadeFisica(dados.get("Atividade Fisica"));
+
+		System.out.println(af.contains(dados.get("Atividade Fisica")));
+
+		if(!fi.contains(dados.get("FunÁ„o Intestinal")))
+			return "FunÁ„o Intestinal do Utente " + dados.get("Nome") + " inv·lida";
+		setFuncaoIntestinal(dados.get("FunÁ„o Intestinal"));
+
+		System.out.println(af.contains(dados.get("Atividade Fisica")));
+
+		if(!ca.contains(dados.get("Consumo de ¡gua")))
+			return "Consumo de ¡gua do Utente " + dados.get("Nome") + " inv·lida";
+		setConsumoAgua(dados.get("Consumo de ¡gua"));
+
+		System.out.println(af.contains(dados.get("Atividade Fisica")));
+
+		if(Double.parseDouble(dados.get("Colesterol")) < 0 || Double.parseDouble(dados.get("Colesterol")) >= 23)
+			return "Colesterol do Utente " + dados.get("Nome") + " inv·lido";
 		
-		if(Double.parseDouble(dadosQuimicosBiologicos.get("Colesterol")) < 0 || Double.parseDouble(dadosQuimicosBiologicos.get("Colesterol")) >= 23)
-			return "Colesterol do Utente " + nome + " inv·lido";
+		System.out.println(af.contains(dados.get("Atividade Fisica")));
+
+		if(Double.parseDouble(dados.get("Creatinina")) < 0 || Double.parseDouble(dados.get("Creatinina")) >= 23)
+			return "Creatinina do Utente " + dados.get("Nome") + " inv·lido";
+
+		System.out.println(af.contains(dados.get("Atividade Fisica")));
+
+		if(Double.parseDouble(dados.get("GlicÈmia")) < 0 || Double.parseDouble(dados.get("GlicÈmia")) >= 23)
+			return "GlicÈmia do Utente " + dados.get("Nome") + " inv·lido";
+
+		System.out.println(af.contains(dados.get("Atividade Fisica")));
+
+		if(Double.parseDouble(dados.get("Ureia")) < 0 || Double.parseDouble(dados.get("Ureia")) >= 23)
+			return "Ureia do Utente " + dados.get("Nome") + " inv·lido";
+
+		System.out.println(af.contains(dados.get("Atividade Fisica")));
+
+		if(Double.parseDouble(dados.get("Prob. C reativa")) < 0 || Double.parseDouble(dados.get("Prob. C reativa")) >= 33)
+			return "Prob. C reativa do Utente " + dados.get("Nome") + " inv·lido";
 		
-		if(Double.parseDouble(dadosQuimicosBiologicos.get("Creatinina")) < 0 || Double.parseDouble(dadosQuimicosBiologicos.get("Creatinina")) >= 23)
-			return "Creatinina do Utente " + nome + " inv·lido";
-		
-		if(Double.parseDouble(dadosQuimicosBiologicos.get("GlicÈmia")) < 0 || Double.parseDouble(dadosQuimicosBiologicos.get("GlicÈmia")) >= 23)
-			return "GlicÈmia do Utente " + nome + " inv·lido";
-		
-		if(Double.parseDouble(dadosQuimicosBiologicos.get("Ureia")) < 0 || Double.parseDouble(dadosQuimicosBiologicos.get("Ureia")) >= 23)
-			return "Ureia do Utente " + nome + " inv·lido";
-		
-		if(Double.parseDouble(dadosQuimicosBiologicos.get("Prob. C reativa")) < 0 || Double.parseDouble(dadosQuimicosBiologicos.get("Prob. C reativa")) >= 33)
-			return "Prob. C reativa do Utente " + nome + " inv·lido";
-		
-		setDadosQuimicosBiologicos(dadosQuimicosBiologicos);
-		
+		setDadosQuimicosBiologicos(dados);
 		return "Sucesso a carregar o Question·rio";
 	}
 	

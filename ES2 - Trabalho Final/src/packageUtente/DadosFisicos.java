@@ -24,7 +24,7 @@ public class DadosFisicos {
 	public String novoDadosFisicos(String peso, String altura, String imc, String bf, String gorduraVisceral, String musculo,
 			String h2o, String osso, String idadeMetabolica, String metabolismoBasal, String fa, String fl, String ft) {
 
-		RepositorioDados rep = new RepositorioDados();
+		RepositorioDados rep = RepositorioDados.iniRepositorioDados();
 		rep.iniRepositorioDados();
 		
 		if(!setPeso(peso))

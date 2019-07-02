@@ -12,7 +12,7 @@ public class Produto {
 	public Produto() {};
 	
 	public String novoProduto(String c, String q, String u) {
-		RepositorioDados rd = new RepositorioDados();
+		RepositorioDados rd = RepositorioDados.iniRepositorioDados();
 		rd.iniRepositorioDados();
 		
 		int cod = Integer.parseInt(c.substring(c.length() - 3));
@@ -60,8 +60,7 @@ public class Produto {
 	}
 	
 	public ArrayList<Double> nutrientesProduto() {
-		RepositorioDados rep = new RepositorioDados();
-		rep.iniRepositorioDados();
+		RepositorioDados rep = RepositorioDados.iniRepositorioDados();
 		
 		ArrayList<Double> resultado = new ArrayList<Double>();
 		Double r = null;
