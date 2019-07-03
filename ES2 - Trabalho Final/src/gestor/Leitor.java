@@ -98,7 +98,6 @@ public class Leitor {
 				}
 				
 				if(fileQ != null && fileHA != null && fileDF != null && filePP != null) {
-//---------------------------------Mudar de Boolean para string------------------------------------------------------------------
 					if(leQuestionario(pasta+"/"+fileQ).equals("Sucesso a ler Questionario"))
 						if(leDadosFisicos(pasta+"/"+fileDF))
 							if(leHabitoAlimentar(pasta+"/"+fileHA))

@@ -39,13 +39,11 @@ public class Questionario {
 			return "Nome do Utente " + dados.get("Nome") + " Inválido";
 		setNome(dados.get("Nome"));
 		
-		System.out.println("Nome");
 		
 		if(!dados.get("Sexo").equals("Masculino") && !dados.get("Sexo").equals("Feminino"))
 			return "Sexo do Utente " + dados.get("Nome") + " inválido";
 		setSexo(dados.get("Sexo"));
 		
-		System.out.println(dados.get("Idade"));
 		
 		if(Integer.parseInt(dados.get("Idade")) < 0 || Integer.parseInt(dados.get("Idade")) >= 150)
 			return "Idade do utente " + dados.get("Idade");
@@ -71,7 +69,6 @@ public class Questionario {
 			return "Atividade fisica do Utente " + dados.get("Nome") + " Inválida";
 		setAtividadeFisica(dados.get("Atividade Fisica"));
 
-		System.out.println(af.contains(dados.get("Atividade Fisica")));
 
 		if(!fi.contains(dados.get("Função Intestinal")))
 			return "Função Intestinal do Utente " + dados.get("Nome") + " inválida";
