@@ -99,14 +99,15 @@ public class Leitor {
 				
 				if(fileQ != null && fileHA != null && fileDF != null && filePP != null) {
 					if(leQuestionario(pasta+"/"+fileQ).equals("Sucesso a ler Questionario"))
-						if(leDadosFisicos(pasta+"/"+fileDF))
-							if(leHabitoAlimentar(pasta+"/"+fileHA))
-								if(leHabitoAlimentar(pasta+"/"+filePP))
+						if(leDadosFisicos(pasta+"/"+fileDF).equals("Sucesso a ler Dados Físicos"))
+							if(leHabitoAlimentar(pasta+"/"+fileHA).equals("Sucesso a ler Habitos Alimentares"))
+								if(leHabitoAlimentar(pasta+"/"+filePP).equals("Sucesso a ler Plano Prescrito"))
 									fileQ = null; fileHA = null; fileDF = null; filePP = null;
 									
 				} else 
 					throw new MissingFilesException(fileQ, fileHA, fileDF, filePP);
 				
+				System.out.println("DONE");
 				return "Ficheiros CSV carregados com sucesso da diretoria.";
 			}
 			else {
@@ -129,7 +130,7 @@ public class Leitor {
 		}
 	}
 
-	public boolean leHabitoAlimentar(String fileName) throws IOException {
+	public String leHabitoAlimentar(String fileName) throws IOException {
 		RepositorioDados rep = RepositorioDados.iniRepositorioDados();
 		
 		HabitosAlimentares ha = new HabitosAlimentares();
@@ -140,6 +141,9 @@ public class Leitor {
 		Refeicao r = null;
 		ArrayList<Refeicao> refeicoes = new ArrayList<Refeicao>();
 		ArrayList<Produto> produtos = new ArrayList<Produto>();
+		ArrayList<String> header = new ArrayList<String>(Arrays.asList("Levantar","Pequeno Almoco","Meio da Manha","Almoco","Meio da Tarde","Jantar","Ceia"));
+		ArrayList<String> headertemp = (ArrayList<String>) header.clone();	
+		
 
 		RepositorioUtentes repU = new RepositorioUtentes();
 		repU.iniRepositorioUtentes();
@@ -164,7 +168,7 @@ public class Leitor {
 				if(campo.length != 0) {
 					if(campo[0].equals("Levantar"))
 						hora = campo[1];
-
+					
 					if(!campo[0].equals("Levantar") && !campo[0].equals("") && !campo[0].equals("Descrição")){
 						if(!produtos.isEmpty()) {
 							r = new Refeicao();
@@ -172,11 +176,21 @@ public class Leitor {
 								refeicoes.add(r);
 								produtos.clear();
 							} else {
-								System.out.println(r.novaRefeicao(ref, horaRef, produtos));
+								return r.novaRefeicao(ref, horaRef, produtos);
 							}
 
 						}
-						ref = campo[0];
+						if(headertemp.contains(campo[0]))
+						{
+							ref = campo[0];
+							if(campo[0].equals("Pequeno Almoco") || campo[0].equals("Levantar") || campo[0].equals("Almoco") || campo[0].equals("Jantar"))
+								headertemp.remove(campo[0]);
+						}
+						else
+						{
+							return "Refeição " + campo[0] + " inválida";
+						}
+							
 						horaRef = campo[1];
 					}
 
@@ -186,11 +200,11 @@ public class Leitor {
 							if(p.novoProduto(campo[2], campo[3], campo[4]).equals("Sucesso a criar produto"))
 								produtos.add(p);
 							else {
-								System.out.println(p.novoProduto(campo[2], campo[3], campo[4]));
+								return p.novoProduto(campo[2], campo[3], campo[4]);
 							}
 
 						}
-					} catch(IndexOutOfBoundsException e) {}
+					} catch(IndexOutOfBoundsException e) {System.out.println("Erro: "+e);}
 				}	
 			}
 
@@ -200,23 +214,20 @@ public class Leitor {
 					refeicoes.add(r);
 					produtos.clear();
 				} else 
-					System.out.println(r.novaRefeicao(ref, horaRef, produtos));
+					return r.novaRefeicao(ref, horaRef, produtos);
 
 			}
 			buff.close();
 		}
 		
 		catch (FileNotFoundException e) {
-			System.out.println("O ficheiro que tentou abrir não existe: " + e);
-			return false;
+			return "O ficheiro que tentou abrir não existe: " + e;
 		}
 		catch (NullPointerException e) {
-			System.out.println("Não foi fornecido nenhum ficheiro de Habito Alimentar: " + e);
-			return false;
+			return "Não foi fornecido nenhum ficheiro de Habito Alimentar: " + e;
 		}
 		catch (IOException e) {
-			System.out.println("Erro a ler o ficheiro: " + e);
-			return false;
+			return "Erro a ler o ficheiro: " + e;
 		}
 
 		if(ha.novoHabitoAlimentar(u, data, hora, refeicoes).equals("Sucesso a criar o Habito Alimentar")) {
@@ -227,29 +238,26 @@ public class Leitor {
 				rep.setHabitoAlimentar(ha);
 
 		} else {
-			System.out.println(ha.novoHabitoAlimentar(u, data, hora, refeicoes));
-			return false;
+			return ha.novoHabitoAlimentar(u, data, hora, refeicoes);
 		}
 		if(fileName.split("/")[2].split("_")[0].equals("PP"))
-			System.out.println("Sucesso a ler Plano Prescrito\n");
+			return "Sucesso a ler Plano Prescrito\n";
 		else if(fileName.split("/")[2].split("_")[0].equals("HA")) 
-			System.out.println("Sucesso a ler Habitos Alimentares\n");
-		
-		return true;
+			return "Sucesso a ler Habitos Alimentares";
+		return "Sucesso";
 	}
 
 	public String leQuestionario(String fileName) throws IOException {
 		RepositorioDados rep = RepositorioDados.iniRepositorioDados();
 		HashMap<String, String> dados = new HashMap<String,String>();
 		ArrayList<String> header = new ArrayList<String>(Arrays.asList("Nome","Sexo","Idade","Profissão","Motivo da Consulta","Objectivo","Patologias","Medicação","Antecedentes Familiares","Atividade Fisica","Função Intestinal","Consumo de Água","Colesterol","Glicémia","Ureia","Creatinina","Prob. C reativa"));
-		ArrayList<String> headertemp = header;	
+		ArrayList<String> headertemp = (ArrayList<String>) header.clone();	
 		
 
 		Questionario q = new Questionario();
 		
 
 		String linha = null;
-		//ArrayList<String> valores = new ArrayList<String>();
 
 		RepositorioUtentes repU = new RepositorioUtentes();
 		repU.iniRepositorioUtentes();
@@ -259,26 +267,16 @@ public class Leitor {
 			System.out.println("A ler o ficheiro " + fileName + " ...");
 
 			buff = new BufferedReader(new FileReader(f));
-		//	String[] d = {"Colesterol","Glicémia","Ureia","Creatinina","Prob. C reativa"};
-		//int skip = 0;
-
-//			while((linha = buff.readLine())!= null) {
-//				skip = 0;
-//				for(String s: d) {
-//					if(linha.split(",")[0].equals(s)) {
-//						skip = 1;
-//						dados.put(s, linha.split(",")[1]);
-//					}
-//				}
-//				if(skip == 0) 
-//					valores.add(linha.split(",")[1]);
-//			}	
+			int x =0;
 			
 			while((linha = buff.readLine())!= null) {
-				if(linha.split(",").length>2)
+				if(linha.split(",").length != 2)
 					return "Numero de parametros invalido para a linha : "+linha;
 				else
 				{
+					if(linha.split(",")[0].length()==0)
+						return "Nome do Campo \"" + header.get(x) + "\" vazio";
+					
 					if(headertemp.contains(linha.split(",")[0]))
 					{
 						dados.put(linha.split(",")[0], linha.split(",")[1]);
@@ -286,21 +284,20 @@ public class Leitor {
 					}
 					else
 					{
-						return "Campo " + linha.split(",")[0] + "invalido";
+						return "Nome do Campo \"" + header.get(x) + "\" invalido";
 					}
 				}
 				
-					
+				x++;	
 			}
 			buff.close();
 		}
 		catch (FileNotFoundException e) {
 			
-			buff.close();
 			return "O ficheiro que tentou abrir não existe: " + e;
 		}
 		catch (IOException e) {
-			buff.close();
+			
 			return "Erro a ler o ficheiro: " + e;
 		}
 
@@ -318,19 +315,20 @@ public class Leitor {
 		}
 
 		rep.setQuestionario(q);
-		System.out.println("feito");
 		return "Sucesso a ler Questionario";
 		
 	}
 
-	public boolean leDadosFisicos(String fileName) throws IOException {
+	public String leDadosFisicos(String fileName) throws IOException {
 		RepositorioDados rep = RepositorioDados.iniRepositorioDados();
 
 		DadosFisicos df = new DadosFisicos();
 
 		String linha = null;
-		ArrayList<String> valores = new ArrayList<String>();
-
+		HashMap<String, String> dados = new HashMap<String,String>();
+		ArrayList<String> header = new ArrayList<String>(Arrays.asList("Peso","Altura","IMC","B.F","Gordura visceral","Musculo","H2O","Osso","Idade Metabolica","Metabolismo Basal","Fator Atividade","Fator Lesão","Fator Térmico"));
+		ArrayList<String> headertemp = (ArrayList<String>) header.clone();	
+		
 		RepositorioUtentes repU = new RepositorioUtentes();
 		repU.iniRepositorioUtentes();
 
@@ -340,10 +338,28 @@ public class Leitor {
 			f = new File(fileName);
 
 			buff = new BufferedReader(new FileReader(f));
-
-			while((linha = buff.readLine())!= null) { 
-				valores.add(linha.split(",")[1]);
-			}			
+			int x = 0;
+			while((linha = buff.readLine())!= null) {
+				if(linha.split(",").length != 2)
+					return "Numero de parametros invalido para a linha : "+linha;
+				else
+				{
+					if(linha.split(",")[0].length()==0)
+						return "Nome do Campo \"" + header.get(x) + "\" vazio";
+					
+					if(headertemp.contains(linha.split(",")[0]))
+					{
+						dados.put(linha.split(",")[0], linha.split(",")[1]);
+						headertemp.remove(linha.split(",")[0]);
+					}
+					else
+					{
+						return "Nome do Campo \"" + header.get(x) + "\" invalido";
+					}
+				}
+				
+				x++;	
+			}		
 			buff.close();
 		}
 		catch (FileNotFoundException e) {
@@ -355,13 +371,11 @@ public class Leitor {
 			buff.close();
 		}
 
-		if(!df.novoDadosFisicos(valores.get(0), valores.get(1), valores.get(2), valores.get(3), valores.get(4), valores.get(5), valores.get(6), valores.get(7), valores.get(8), valores.get(9), valores.get(10), valores.get(11), valores.get(12)).equals("Sucesso a carregar os Dados Fisicos")) {
-			System.out.println(df.novoDadosFisicos(valores.get(0), valores.get(1), valores.get(2), valores.get(3), valores.get(4), valores.get(5), valores.get(6), valores.get(7), valores.get(8), valores.get(9), valores.get(10), valores.get(11), valores.get(12)) + "\n");
-			return false;
-		}
+		if(!df.novoDadosFisicos(dados).equals("Sucesso a carregar dados físicos"))
+			rep.setDadosFisicos(Integer.parseInt(fileName.split("_")[5]), df);
 
-		rep.setDadosFisicos(Integer.parseInt(fileName.split("_")[5]), df);
+		
 		System.out.println("Sucesso a ler Dados Fisicos\n");
-		return true;
+		return "Sucesso a ler Dados Físicos";
 	}
 }

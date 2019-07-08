@@ -1,5 +1,7 @@
 package packageUtente;
 
+import java.util.HashMap;
+
 import packageRepositorios.RepositorioDados;
 
 public class DadosFisicos {
@@ -21,63 +23,60 @@ public class DadosFisicos {
 
 	public DadosFisicos() {}
 	
-	public String novoDadosFisicos(String peso, String altura, String imc, String bf, String gorduraVisceral, String musculo,
-			String h2o, String osso, String idadeMetabolica, String metabolismoBasal, String fa, String fl, String ft) {
+	public String novoDadosFisicos(HashMap<String,String> dados) {
 
-		RepositorioDados rep = RepositorioDados.iniRepositorioDados();
-		rep.iniRepositorioDados();
 		
-		if(!setPeso(peso))
+		if(!setPeso(dados.get("Peso")))
 			return "Peso Inválido";
+		setPeso(dados.get("Peso"));
 		
-		
-		if(Integer.parseInt(altura) < 0 || Integer.parseInt(altura) >= 300)
+		if(Integer.parseInt(dados.get("Altura")) < 0 || Integer.parseInt(dados.get("Altura")) >= 300)
 			return "Altura Inválida";
-		setAltura(altura);
+		setAltura(dados.get("Altura"));
 		
-		if(Integer.parseInt(imc) < 0 || Integer.parseInt(imc) >= 40)
+		if(Integer.parseInt(dados.get("IMC")) < 0 || Integer.parseInt(dados.get("IMC")) >= 40)
 			return "IMC Inválido";
-		setImc(imc);
+		setImc(dados.get("IMC"));
 		
-		if(Integer.parseInt(bf) < 0 || Integer.parseInt(bf) >= 80)
-			return "BF Inválido";
-		setBf(bf);
+		if(Integer.parseInt(dados.get("B.F")) < 0 || Integer.parseInt(dados.get("B.F")) >= 80)
+			return "B.F Inválido";
+		setBf(dados.get("B.F"));
 		
-		if(Integer.parseInt(gorduraVisceral) < 0 || Integer.parseInt(gorduraVisceral) >= 60)
+		if(Integer.parseInt(dados.get("Gordura visceral")) < 0 || Integer.parseInt(dados.get("Gordura visceral")) >= 60)
 			return "Gordura Visceral Inválida";
-		setGorduraVisceral(gorduraVisceral);
+		setGorduraVisceral(dados.get("Gordura visceral"));
 		
-		if(Integer.parseInt(musculo) < 0 || Integer.parseInt(musculo) >= 100)
+		if(Integer.parseInt(dados.get("Musculo")) < 0 || Integer.parseInt(dados.get("Musculo")) >= 100)
 			return "Musculo Inválido";
-		setMusculo(musculo);
+		setMusculo(dados.get("Musculo"));
 		
-		if(Integer.parseInt(h2o) < 0 || Integer.parseInt(h2o) >= 40)
+		if(Integer.parseInt(dados.get("H2O")) < 0 || Integer.parseInt(dados.get("H2O")) >= 40)
 			return "H2O Inválido";
-		setH2o(h2o);
+		setH2o(dados.get("H2O"));
 		
-		if(Integer.parseInt(osso) < 0 || Integer.parseInt(osso) >= 4)
+		if(Integer.parseInt(dados.get("Osso")) < 0 || Integer.parseInt(dados.get("Osso")) >= 4)
 			return "Osso Inválido";
-		setOsso(osso);
+		setOsso(dados.get("Osso"));
 		
-		if(Integer.parseInt(idadeMetabolica) < 0 || Integer.parseInt(idadeMetabolica) >= 70)
+		if(Integer.parseInt(dados.get("Idade Metabolica")) < 0 || Integer.parseInt(dados.get("Idade Metabolica")) >= 70)
 			return "Idade Metabolica Inválida";
-		setIdadeMetabolica(idadeMetabolica);
+		setIdadeMetabolica(dados.get("Idade Metabolica"));
 		
-		if(Integer.parseInt(metabolismoBasal) < 0 || Integer.parseInt(metabolismoBasal) >= 50)
+		if(Integer.parseInt(dados.get("Metabolismo Basal")) < 0 || Integer.parseInt(dados.get("Metabolismo Basal")) >= 50)
 			return "Metabolismo Basal Inválido";
-		setMetabolismoBasal(metabolismoBasal);
+		setMetabolismoBasal(dados.get("Metabolismo Basal"));
 		
-		if(Double.parseDouble(fa) < 1.2 || Double.parseDouble(fa) > 1.3)
+		if(Double.parseDouble(dados.get("Fator Atividade")) < 1.2 || Double.parseDouble(dados.get("Fator Atividade")) > 1.3)
 			return "Fator Atividade Inválido";
-		setFatorAtividade(fa);
+		setFatorAtividade(dados.get("Fator Atividade"));
 		
-		if(Double.parseDouble(fl) < 1 || Double.parseDouble(fl) > 2)
+		if(Double.parseDouble(dados.get("Fator Lesão")) < 1 || Double.parseDouble(dados.get("Fator Lesão")) > 2)
 			return "Fator Lesão Inválido";
-		setFatorLesao(fl);
+		setFatorLesao(dados.get("Fator Lesão"));
 		
-		if(Double.parseDouble(ft) < 1.1 || Double.parseDouble(ft) > 1.4)
+		if(Double.parseDouble(dados.get("Fator Térmico")) < 1.1 || Double.parseDouble(dados.get("Fator Térmico")) > 1.4)
 			return "Fator Térmico Inválido";
-		setFatorTermico(ft);
+		setFatorTermico(dados.get("Fator Térmico"));
 		
 		return "Sucesso a carregar os Dados Fisicos";
 	}

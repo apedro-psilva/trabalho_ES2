@@ -34,7 +34,7 @@ public class Questionario {
 		ca.add("Menos de 0.5L");ca.add("0.5L a 1L");ca.add("1.5L a 2L");ca.add("Mais de 2L");
 		
 		setId(id);
-		System.out.println(dados);
+
 		if(!dados.get("Nome").matches(regexNome))
 			return "Nome do Utente " + dados.get("Nome") + " Inválido";
 		setNome(dados.get("Nome"));
@@ -48,7 +48,7 @@ public class Questionario {
 		if(Integer.parseInt(dados.get("Idade")) < 0 || Integer.parseInt(dados.get("Idade")) >= 150)
 			return "Idade do utente " + dados.get("Idade");
 		setIdade(dados.get("Idade"));
-		System.out.println("idade");
+		
 		
 		if(!dados.get("Profissão").matches(regexNome))
 			return "Profissão do Utente " + dados.get("Nome") + " Inválido";
@@ -74,33 +74,27 @@ public class Questionario {
 			return "Função Intestinal do Utente " + dados.get("Nome") + " inválida";
 		setFuncaoIntestinal(dados.get("Função Intestinal"));
 
-		System.out.println(af.contains(dados.get("Atividade Fisica")));
 
 		if(!ca.contains(dados.get("Consumo de Água")))
 			return "Consumo de Água do Utente " + dados.get("Nome") + " inválida";
 		setConsumoAgua(dados.get("Consumo de Água"));
 
-		System.out.println(af.contains(dados.get("Atividade Fisica")));
 
 		if(Double.parseDouble(dados.get("Colesterol")) < 0 || Double.parseDouble(dados.get("Colesterol")) >= 23)
 			return "Colesterol do Utente " + dados.get("Nome") + " inválido";
 		
-		System.out.println(af.contains(dados.get("Atividade Fisica")));
 
 		if(Double.parseDouble(dados.get("Creatinina")) < 0 || Double.parseDouble(dados.get("Creatinina")) >= 23)
 			return "Creatinina do Utente " + dados.get("Nome") + " inválido";
 
-		System.out.println(af.contains(dados.get("Atividade Fisica")));
 
 		if(Double.parseDouble(dados.get("Glicémia")) < 0 || Double.parseDouble(dados.get("Glicémia")) >= 23)
 			return "Glicémia do Utente " + dados.get("Nome") + " inválido";
 
-		System.out.println(af.contains(dados.get("Atividade Fisica")));
 
 		if(Double.parseDouble(dados.get("Ureia")) < 0 || Double.parseDouble(dados.get("Ureia")) >= 23)
 			return "Ureia do Utente " + dados.get("Nome") + " inválido";
 
-		System.out.println(af.contains(dados.get("Atividade Fisica")));
 
 		if(Double.parseDouble(dados.get("Prob. C reativa")) < 0 || Double.parseDouble(dados.get("Prob. C reativa")) >= 33)
 			return "Prob. C reativa do Utente " + dados.get("Nome") + " inválido";
