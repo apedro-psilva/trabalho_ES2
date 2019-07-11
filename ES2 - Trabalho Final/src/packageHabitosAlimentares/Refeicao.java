@@ -15,7 +15,7 @@ public class Refeicao {
 		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 		
 		if(pro.isEmpty())
-			return "Refeição " + tipo + " não tem produtos. Ignorado.";
+			return "Refeição \"" + tip + "\" não tem produtos.";
 		
 		setProdutos(pro);
 	
@@ -29,7 +29,7 @@ public class Refeicao {
 			setHora(timeFormat.format(dat));
 		}
 		catch(Exception e) {
-			return "Hora da refeição " + tipo + " não está no formato HH:MM. Ignorado.";
+			return "Hora da refeição \"" + tip + "\" não está no formato HH:MM.";
 		}
 			
 		return "Sucesso a criar refeição";

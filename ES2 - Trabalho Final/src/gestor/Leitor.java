@@ -107,7 +107,6 @@ public class Leitor {
 				} else 
 					throw new MissingFilesException(fileQ, fileHA, fileDF, filePP);
 				
-				System.out.println("DONE");
 				return "Ficheiros CSV carregados com sucesso da diretoria.";
 			}
 			else {
@@ -145,8 +144,7 @@ public class Leitor {
 		ArrayList<String> headertemp = (ArrayList<String>) header.clone();	
 		
 
-		RepositorioUtentes repU = new RepositorioUtentes();
-		repU.iniRepositorioUtentes();
+		RepositorioUtentes repU = RepositorioUtentes.iniRepositorioUtentes();
 
 		Utente u = new Utente();
 
@@ -204,7 +202,7 @@ public class Leitor {
 							}
 
 						}
-					} catch(IndexOutOfBoundsException e) {System.out.println("Erro: "+e);}
+					} catch(IndexOutOfBoundsException e) {}
 				}	
 			}
 
@@ -242,9 +240,9 @@ public class Leitor {
 		}
 		if(fileName.split("/")[2].split("_")[0].equals("PP"))
 			return "Sucesso a ler Plano Prescrito\n";
-		else if(fileName.split("/")[2].split("_")[0].equals("HA")) 
+		else //if(fileName.split("/")[2].split("_")[0].equals("HA")) 
 			return "Sucesso a ler Habitos Alimentares";
-		return "Sucesso";
+		//return "Sucesso";
 	}
 
 	public String leQuestionario(String fileName) throws IOException {
@@ -259,8 +257,7 @@ public class Leitor {
 
 		String linha = null;
 
-		RepositorioUtentes repU = new RepositorioUtentes();
-		repU.iniRepositorioUtentes();
+		RepositorioUtentes repU = RepositorioUtentes.iniRepositorioUtentes();
 
 		try {	
 			f = new File(fileName);
@@ -329,8 +326,7 @@ public class Leitor {
 		ArrayList<String> header = new ArrayList<String>(Arrays.asList("Peso","Altura","IMC","B.F","Gordura visceral","Musculo","H2O","Osso","Idade Metabolica","Metabolismo Basal","Fator Atividade","Fator Lesão","Fator Térmico"));
 		ArrayList<String> headertemp = (ArrayList<String>) header.clone();	
 		
-		RepositorioUtentes repU = new RepositorioUtentes();
-		repU.iniRepositorioUtentes();
+		RepositorioUtentes repU = RepositorioUtentes.iniRepositorioUtentes();
 
 		try {	
 			System.out.println("A ler o ficheiro " + fileName + " ...");
@@ -341,7 +337,7 @@ public class Leitor {
 			int x = 0;
 			while((linha = buff.readLine())!= null) {
 				if(linha.split(",").length != 2)
-					return "Numero de parametros invalido para a linha : "+linha;
+					return linha.split(",")[0] + " vazio";
 				else
 				{
 					if(linha.split(",")[0].length()==0)
@@ -371,11 +367,12 @@ public class Leitor {
 			buff.close();
 		}
 
-		if(!df.novoDadosFisicos(dados).equals("Sucesso a carregar dados físicos"))
+		if(df.novoDadosFisicos(dados).equals("Sucesso a carregar dados físicos"))
+		{
 			rep.setDadosFisicos(Integer.parseInt(fileName.split("_")[5]), df);
-
-		
-		System.out.println("Sucesso a ler Dados Fisicos\n");
-		return "Sucesso a ler Dados Físicos";
+			return "Sucesso a ler Dados Físicos";
+		}
+		else
+			return df.novoDadosFisicos(dados);
 	}
 }

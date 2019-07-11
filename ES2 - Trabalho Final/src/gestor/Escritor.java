@@ -17,9 +17,9 @@ public class Escritor {
 	CSVWriter csvw = null;
 	private static Escritor instance = null;
 
-	public Escritor() {}
+	private Escritor() {}
 
-	public Escritor iniEscritor() {
+	public static Escritor iniEscritor() {
 		if(instance == null) {
 			instance = new Escritor();
 		}

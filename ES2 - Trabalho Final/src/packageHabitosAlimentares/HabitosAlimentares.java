@@ -18,8 +18,7 @@ public class HabitosAlimentares {
 	public HabitosAlimentares() {}
 	
 	public String novoHabitoAlimentar(Utente user, String d, String h, ArrayList<Refeicao> r) {
-		RepositorioUtentes ru = new RepositorioUtentes();
-		ru.iniRepositorioUtentes();
+		RepositorioUtentes ru = RepositorioUtentes.iniRepositorioUtentes();
 		
 		if(r.isEmpty())
 			return "Hábito Alimentar do Utente " + user.getNome() + " do dia " + d + " sem refeições. Ignorado.";

@@ -14,15 +14,11 @@ import packageUtente.Utente;
 public class Cliente {
 	public static void main(String args[]) throws IOException, EmptyFolderException, MissingFilesException{
 		RepositorioDados rep = RepositorioDados.iniRepositorioDados();
-		RepositorioUtentes repU = new RepositorioUtentes();
-		rep.iniRepositorioDados();
-		repU.iniRepositorioUtentes();
+		RepositorioUtentes repU = RepositorioUtentes.iniRepositorioUtentes();
 
-		Escritor esc = new Escritor();
-		esc.iniEscritor();
+		Escritor esc =Escritor.iniEscritor();
 
 		Leitor l = Leitor.iniLeitor();
-		l.iniLeitor();
 
 		System.out.println(l.tabelaNutricional("src/Auxiliares/tabela_nutricional.txt"));
 
@@ -47,13 +43,10 @@ public class Cliente {
 
 	public static void geraDados(int tipo, int id, HabitosAlimentares ha, HashMap<Integer, String[]> arr) throws IOException {
 		RepositorioDados rep = RepositorioDados.iniRepositorioDados();
-		rep.iniRepositorioDados();
 		
-		RepositorioUtentes repU = new RepositorioUtentes();
-		repU.iniRepositorioUtentes();
+		RepositorioUtentes repU = RepositorioUtentes.iniRepositorioUtentes();
 		
-		Escritor esc = new Escritor();
-		esc.iniEscritor();
+		Escritor esc = Escritor.iniEscritor();
 
 		ArrayList<String> temp = new ArrayList<String>();
 		Integer c = 0;

@@ -7,9 +7,9 @@ public class RepositorioUtentes {
 	static ArrayList<Utente> utentes = null;
 	static RepositorioUtentes instance = null;
 	
-	public RepositorioUtentes() {}
+	private RepositorioUtentes() {}
 	
-	public RepositorioUtentes iniRepositorioUtentes() {
+	public static RepositorioUtentes iniRepositorioUtentes() {
 		if(instance == null) {
 			instance = new RepositorioUtentes();
 			utentes = new ArrayList<Utente>();

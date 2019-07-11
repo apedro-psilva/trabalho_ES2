@@ -1,6 +1,7 @@
 package packageHabitosAlimentares;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import packageRepositorios.RepositorioDados;
 
@@ -13,22 +14,34 @@ public class Produto {
 	
 	public String novoProduto(String c, String q, String u) {
 		RepositorioDados rd = RepositorioDados.iniRepositorioDados();
-		rd.iniRepositorioDados();
 		
-		int cod = Integer.parseInt(c.substring(c.length() - 3));
-
+		int cod = 0;
+		
+		try 
+		{
+		 cod = Integer.parseInt(c.substring(c.length() - 3));
+		}
+		catch(StringIndexOutOfBoundsException e) 
+		{
+			return "Codigo \"" + c + "\" invalido";
+		}
+		if(!c.contains("IS"))
+			return "Código do produto " + c + " inválido.";
+			
 		if(cod > rd.getTabela().size() || cod <= 0)
 			return "Código do produto " + c + " inválido.";
 			
 		setCodigo(c);
-		
-		if(Integer.parseInt(q) < 0)
+		try {
+		if(Integer.parseInt(q) <= 0)
 			return "Quantidade do produto " + c + " inválida.";
-		
+		}catch (NumberFormatException e){
+			return "Quantidade do produto " + c + " inválida.";
+		}
 		setQuantidade(q);
 		
 		if(!u.equals("g") && !u.equals("mg") && !u.equals("l") && !u.equals("ml"))
-			return "Unidade do produto " + c + " inválida. Produto Ignorado.";
+			return "Unidade do produto " + c + " inválida.";
 			
 		setUnidade(u);
 		
