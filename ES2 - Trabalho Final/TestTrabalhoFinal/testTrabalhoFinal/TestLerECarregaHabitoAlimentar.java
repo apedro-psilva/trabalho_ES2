@@ -15,6 +15,7 @@ import gestor.Leitor;
 import packageHabitosAlimentares.HabitosAlimentares;
 import packageHabitosAlimentares.Produto;
 import packageHabitosAlimentares.Refeicao;
+import packageUtente.Utente;
 
 public class TestLerECarregaHabitoAlimentar {
 
@@ -39,12 +40,6 @@ public class TestLerECarregaHabitoAlimentar {
 	public void tearDown() throws Exception {
 	}
 
-	@Test
-	public void testLeHabitoHAlientarValido() throws IOException {
-		Leitor L = Leitor.iniLeitor();
-		assertEquals("Sucesso a ler Habitos Alimentares",L.leHabitoAlimentar("src/Inputs_Q_DF_HA_PP/HA_02_01_06_2019_12_25 .csv"));
-		
-  }
 	//-----------------------------------------------------------------------------------------
 	//-----------------------------Produtos----------------------------------------------------
 	
@@ -181,8 +176,39 @@ public class TestLerECarregaHabitoAlimentar {
 			assertEquals("Hora da refeição \"Almoço\" não está no formato HH:MM.",r.novaRefeicao("Almoço", "aa:aa", pro));	
 		}
 		
+		// ------------------------Testar no leitor o tipo invalido e vazio
+//		@Test
+//		public void testRefeicaoTipoInvalido() throws IOException{
+//			Refeicao r = new Refeicao();
+//			
+//			Produto p = new Produto();
+//			p.novoProduto("IS001", "2", "g");
+//			
+//			ArrayList<Produto> pro = new ArrayList<Produto>();
+//			pro.add(p);
+//						
+//			assertEquals("Hora da refeição \"Almoço\" não está no formato HH:MM.",r.novaRefeicao("Almoço2", "13:00", pro));	
+//		}
+//		
+
+		
+		//-----------------------------------------------------------------------------------------
+		//-----------------------------Habitos Alimentares-----------------------------------------
+		
 		@Test
-		public void testRefeicaoTipoInvalido() throws IOException{
+		public void testLeHabitoHAlientarValido() throws IOException {
+			Leitor L = Leitor.iniLeitor();
+			assertEquals("Sucesso a ler Habitos Alimentares",L.leHabitoAlimentar("src/Inputs_Q_DF_HA_PP/HA_02_01_06_2019_12_25 .csv"));
+		}
+		
+		
+		@Test
+		public void testLeHabitoHAlientarUtilizadorVazio() throws IOException {
+
+			HabitosAlimentares ha = new HabitosAlimentares();
+			
+			Utente u = new Utente();			
+			
 			Refeicao r = new Refeicao();
 			
 			Produto p = new Produto();
@@ -190,8 +216,17 @@ public class TestLerECarregaHabitoAlimentar {
 			
 			ArrayList<Produto> pro = new ArrayList<Produto>();
 			pro.add(p);
-						
-			assertEquals("Hora da refeição \"Almoço\" não está no formato HH:MM.",r.novaRefeicao("Almoço2", "13:00", pro));	
+			
+			r.novaRefeicao("Almoco", "13:00", pro);
+			ArrayList<Refeicao> ref = new ArrayList<Refeicao>();
+			ref.add(r);
+			r.novaRefeicao("Jantar", "20:00", pro);
+			
+			ref.add(r);
+			
+			assertEquals("Hábito Alimentar para o Utente null do dia 2 não existe.",ha.novoHabitoAlimentar(u, "2", "09:00", ref));
+			
 		}
+		
 		
 }

@@ -21,11 +21,11 @@ public class HabitosAlimentares {
 		RepositorioUtentes ru = RepositorioUtentes.iniRepositorioUtentes();
 		
 		if(r.isEmpty())
-			return "Hábito Alimentar do Utente " + user.getNome() + " do dia " + d + " sem refeições. Ignorado.";
+			return "Hábito Alimentar do Utente " + user.getNome() + " do dia " + d + " sem refeições.";
 		setRefeicoes(r);
 
 		if(ru.checkUtenteID(user.getId()) == null)
-			return "Hábito Alimentar para o Utente " + user.getNome() + " do dia " + d + " não existe. Ignorado.";
+			return "Hábito Alimentar para o Utente " + user.getNome() + " do dia " + d + " não existe.";
 		
 		setUser(user);
 
@@ -34,7 +34,7 @@ public class HabitosAlimentares {
 			setData(dateFormat.format(dat));
 		}
 		catch(Exception e) {
-			return "Data do Hábito Alimentar do Utente " + user.getNome() + " do dia " + d + " não está no formato DD/MM/YYYY. Ignorado.";
+			return "Data do Hábito Alimentar do Utente " + user.getNome() + " do dia " + d + " não está no formato DD/MM/YYYY.";
 		}
 
 		try {
@@ -45,7 +45,7 @@ public class HabitosAlimentares {
 			setHoraLevantar(timeFormat.format(dat));
 		}
 		catch(Exception e) {
-			return "Hora de Levantar do Hábito Alimentar do Utente " + user.getNome() + " do dia " + d + " nao está no formato HH:MM. Ignorado.";
+			return "Hora de Levantar do Hábito Alimentar do Utente " + user.getNome() + " do dia " + d + " nao está no formato HH:MM.";
 
 		}
 		return "Sucesso a criar o Habito Alimentar";
