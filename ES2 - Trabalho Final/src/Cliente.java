@@ -25,7 +25,7 @@ public class Cliente {
 		//rep.printTabela();
 		//HashMap<String, String> info = rep.getAndPrintInfoCodigo("IS795");
 
-			l.lePasta("src/Inputs_Q_DF_HA_PP");
+			l.lePasta("src/PastasTEstesInputs/Inputs_Q_DF_HA_PP");
 		
 		
 //

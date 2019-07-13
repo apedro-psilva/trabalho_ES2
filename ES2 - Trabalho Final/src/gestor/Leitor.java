@@ -240,9 +240,8 @@ public class Leitor {
 		}
 		if(fileName.split("/")[2].split("_")[0].equals("PP"))
 			return "Sucesso a ler Plano Prescrito\n";
-		else //if(fileName.split("/")[2].split("_")[0].equals("HA")) 
+		else 
 			return "Sucesso a ler Habitos Alimentares";
-		//return "Sucesso";
 	}
 
 	public String leQuestionario(String fileName) throws IOException {
@@ -367,12 +366,12 @@ public class Leitor {
 			buff.close();
 		}
 
-		if(df.novoDadosFisicos(dados).equals("Sucesso a carregar dados físicos"))
+		if(df.novoDadosFisicos(dados).equals("Sucesso a carregar os Dados Fisicos"))
 		{
 			rep.setDadosFisicos(Integer.parseInt(fileName.split("_")[5]), df);
 			return "Sucesso a ler Dados Físicos";
 		}
-		else
-			return df.novoDadosFisicos(dados);
+		else 
+			return df.novoDadosFisicos(dados);			
 	}
 }

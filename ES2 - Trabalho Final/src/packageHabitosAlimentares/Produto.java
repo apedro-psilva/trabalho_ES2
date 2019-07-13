@@ -23,13 +23,19 @@ public class Produto {
 		}
 		catch(StringIndexOutOfBoundsException e) 
 		{
+			System.out.println("erro1");
 			return "Codigo \"" + c + "\" invalido";
 		}
-		if(!c.contains("IS"))
+		if(!c.contains("IS")) {
+			System.out.println("erro2");
 			return "Código do produto " + c + " inválido.";
+		}
 			
-		if(cod > rd.getTabela().size() || cod <= 0)
+			
+		if(cod > rd.getTabela().size() || cod <= 0){
+			System.out.println("erro3");
 			return "Código do produto " + c + " inválido.";
+		}
 			
 		setCodigo(c);
 		try {
