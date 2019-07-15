@@ -1,8 +1,11 @@
 package packageHabitosAlimentares;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import gestor.Leitor;
 import packageRepositorios.RepositorioDados;
 
 public class Produto {
@@ -23,25 +26,27 @@ public class Produto {
 		}
 		catch(StringIndexOutOfBoundsException e) 
 		{
-			System.out.println("erro1");
-			return "Codigo \"" + c + "\" invalido";
+			return "Codigo \"" + c + "\" vazio.";
 		}
+		
 		if(!c.contains("IS")) {
-			System.out.println("erro2");
 			return "Código do produto " + c + " inválido.";
 		}
 			
-			
-		if(cod > rd.getTabela().size() || cod <= 0){
-			System.out.println("erro3");
-			return "Código do produto " + c + " inválido.";
+		if(cod > 998){
+			return "Código do produto " + c + " acima dos valores válidos.";
 		}
-			
+		
+		if(cod <= 0)
+			return "Código do produto " + c + " abaixo dos valores válidos.";
+		
 		setCodigo(c);
+		
 		try {
-		if(Integer.parseInt(q) <= 0)
-			return "Quantidade do produto " + c + " inválida.";
-		}catch (NumberFormatException e){
+			if(Integer.parseInt(q) <= 0)
+				return "Quantidade do produto " + c + " abaixo dos valores válidos.";
+		}
+		catch (NumberFormatException e){
 			return "Quantidade do produto " + c + " inválida.";
 		}
 		setQuantidade(q);
@@ -78,24 +83,34 @@ public class Produto {
 		this.unidade = unidade;
 	}
 	
-	public ArrayList<Double> nutrientesProduto() {
+	public ArrayList<Double> nutrientesProduto() throws IOException {
 		RepositorioDados rep = RepositorioDados.iniRepositorioDados();
+		Leitor l = Leitor.iniLeitor();
+		
+		if(rep.getTabela().isEmpty())
+			l.tabelaNutricional("src/Auxiliares/tabela_nutricional.txt");
 		
 		ArrayList<Double> resultado = new ArrayList<Double>();
 		Double r = null;
 		
-		for(String s: rep.getHeader()) {
+		ArrayList<String> header = (ArrayList<String>) rep.getHeader().clone();
+		
+		List<String> headerTemp = header.subList(2, header.size());
+		
+		for(String s: headerTemp) {
 			try {
-				if(unidade.equals("l")) 
-					r = (Double.parseDouble(rep.getTabela().get(codigo).get(s)) * (Double.parseDouble(quantidade) * 1000)) / 100;
-				else if(unidade.equals("mg"))
-					r = (Double.parseDouble(rep.getTabela().get(codigo).get(s)) * (Double.parseDouble(quantidade) / 1000)) / 100;
+				if(this.unidade.equals("l")) 
+					r = (Double.parseDouble(rep.getTabela().get(this.codigo).get(s)) * (Double.parseDouble(this.quantidade) * 1000)) / 100;
+				else if(this.unidade.equals("mg"))
+					r = (Double.parseDouble(rep.getTabela().get(this.codigo).get(s)) * (Double.parseDouble(this.quantidade) / 1000)) / 100;
 				else
-					r = (Double.parseDouble(rep.getTabela().get(codigo).get(s)) * Double.parseDouble(quantidade)) / 100;
+					r = (Double.parseDouble(rep.getTabela().get(this.codigo).get(s)) * Double.parseDouble(this.quantidade)) / 100;
 				
 				resultado.add(r);
 			}
-			catch (NumberFormatException e) {}
+			catch (NumberFormatException e) {
+				System.out.println(s);
+			}
 			
 		}
 		return resultado;

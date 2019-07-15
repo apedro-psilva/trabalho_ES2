@@ -1,29 +1,29 @@
 Descrição,Hora,Código,Quantidade,Unidade
-Levantar,9:30,,,
+Levantar,9:00,,,
 ,,,,
-Pequeno Almoco,10:00,,,
+ ,10:00,,,
 ,,IS026,220,ml
 ,,IS058,100,g
 ,,IS427,1,g
 ,,,,
 Meio da Manha,11:00,,,
-,,IS427,1,l
-,,IS459,2,g
+,,IS427,1,g
+,,IS459,2,ml
 ,,,,
 Meio da Manha,12:00,,,
-,,IS459,1,g
+,,IS459,1,l
 ,,,,
 Almoco,13:00,,,
-,,IS795,1,g
+,,IS795,500,mg
 ,,,,
-Meio da Tarde,15:000,,,
+Meio da Tarde,15:00,,,
 ,,IS444,120,g
 ,,,,
 Meio da Tarde,17:00,,,
-,,IS636,2,g
+,,IS636,300,g
 ,,,,
 Jantar,20:00,,,
-,,IS792,2,g
+,,IS792,2000,g
 ,,,,
 Ceia,23:00,,,
 ,,IS674,100,g

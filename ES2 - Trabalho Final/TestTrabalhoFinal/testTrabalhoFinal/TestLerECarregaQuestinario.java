@@ -51,6 +51,18 @@ public class TestLerECarregaQuestinario {
 	public void tearDown() throws Exception {
 	}
 	
+	@Test
+	public void testLeQuestionarioFicheiroInvalido() throws IOException {
+		Leitor L = Leitor.iniLeitor();
+		assertEquals("Ficheiro do Questionario não existe",L.leQuestionario("src/PastasTestesInputs/Inputs_Q_DF_HA_PP/NaoExiste.csv"));
+	}
+	
+	@Test
+	public void testLeQuestionarioFicheiroNull() throws IOException {
+		Leitor L = Leitor.iniLeitor();
+		assertEquals("Não foi fornecido nenhum ficheiro de Questionario",L.leQuestionario(null));
+	}
+	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////// Verificação do header //////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -456,7 +468,7 @@ public class TestLerECarregaQuestinario {
 	
 	//------------------------Antecedentes Familiares-----------------------------------------------------------
 	@Test
-	public void testNovoQuestionarioAntecedentesFamiliaresVazio() {
+	public void testNovoQuestionarioAntecedentesFamiliaresVazio() { 
 		Questionario q = new Questionario();
 		valoresReferencia.replace("Antecedentes Familiares", "");
 		assertEquals("Antecedentes Familiares do Utente vazios", q.novoQuestionario(1, valoresReferencia));
@@ -712,7 +724,7 @@ public class TestLerECarregaQuestinario {
 	@Test
 	public void testNovoQuestionarioProbCreativaInvalidaSuperior() {
 		Questionario q = new Questionario();
-		valoresReferencia.replace("Prob. C reativa", "23");
+		valoresReferencia.replace("Prob. C reativa", "30");
 		assertEquals("Prob. C reativa do Utente acima dos valores válidos", q.novoQuestionario(1, valoresReferencia));
 	}	
 }

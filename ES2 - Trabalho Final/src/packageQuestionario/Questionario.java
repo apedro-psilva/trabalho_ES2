@@ -207,7 +207,7 @@ public class Questionario {
 			if(Double.parseDouble(dados.get("Prob. C reativa")) < 0)
 				return "Prob. C reativa do Utente abaixo dos valores válidos";
 			
-			if(Double.parseDouble(dados.get("Prob. C reativa")) >= 23)
+			if(Double.parseDouble(dados.get("Prob. C reativa")) >= 30)
 				return "Prob. C reativa do Utente acima dos valores válidos";
 			
 			dadosQuiBio.put("Prob. C reativa", dados.get("Prob. C reativa"));

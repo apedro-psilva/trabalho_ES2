@@ -109,6 +109,7 @@ public class Utente {
 	public double getTMB(){
 		RepositorioDados rep = RepositorioDados.iniRepositorioDados();
 		double resultado = 0;
+		System.out.println(rep.getDadosFisicos(this.getId()));
 		double pe = Double.parseDouble((rep.getDadosFisicos(this.getId()).getPeso()));
 		double al = Double.parseDouble((rep.getDadosFisicos(this.getId()).getAltura()));
 		
@@ -123,7 +124,7 @@ public class Utente {
 	public double getHarrisBenedict() {
 		RepositorioDados rep = RepositorioDados.iniRepositorioDados();
 		
-		return getTMB() * Double.parseDouble(rep.getDadosFisicos(this.getId()).getFatorAtividade()) * Double.parseDouble(rep.getDadosFisicos(this.getId()).getFatorLesao()) * Double.parseDouble(rep.getDadosFisicos(this.getId()).getFatorTermico());
+		return this.getTMB() * Double.parseDouble(rep.getDadosFisicos(this.getId()).getFatorAtividade()) * Double.parseDouble(rep.getDadosFisicos(this.getId()).getFatorLesao()) * Double.parseDouble(rep.getDadosFisicos(this.getId()).getFatorTermico());
 	}
 	
 }

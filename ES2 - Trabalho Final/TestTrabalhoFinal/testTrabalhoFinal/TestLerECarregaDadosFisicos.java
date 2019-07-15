@@ -49,6 +49,19 @@ public class TestLerECarregaDadosFisicos {
 	@After
 	public void tearDown() throws Exception {
 	}
+	
+	
+	@Test
+	public void testLeDadosFisicosFicheiroInvalido() throws IOException {
+		Leitor L = Leitor.iniLeitor();
+		assertEquals("Ficheiro dos Dados Fisicos não existe",L.leDadosFisicos("src/PastasTestesInputs/Inputs_Q_DF_HA_PP/NaoExiste.csv"));
+	}
+	
+	@Test
+	public void testLeDadosFisicosFicheiroNull() throws IOException {
+		Leitor L = Leitor.iniLeitor();
+		assertEquals("Não foi fornecido nenhum ficheiro de Dados Fisicos",L.leDadosFisicos(null));
+	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////// Verificação do header //////////////////////////////////////
@@ -57,9 +70,9 @@ public class TestLerECarregaDadosFisicos {
 	@Test
 	public void testLeDadosFisicosValido() throws IOException {
 		Leitor L = Leitor.iniLeitor();
-		assertEquals("Sucesso a ler Dados Físicos",L.leDadosFisicos("src/PastasTestesInputs/Inputs_Q_DF_HA_PP/DF_02_03_06_2019_21_32 .csv"));
+		assertEquals("Sucesso a ler Dados Físicos",L.leDadosFisicos("src/PastasTestesInputs/Inputs_Q_DF_HA_PP/DF_02_03_06_2019_21_32.csv"));
 	}
-	
+
 	
 	//-----------------------------------------------------------------------------------------
 	//-----------------------------PESO------------------------------------------------------------

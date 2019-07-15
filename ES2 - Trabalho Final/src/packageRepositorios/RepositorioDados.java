@@ -67,7 +67,8 @@ public class RepositorioDados {
 				if(valores.size() == 43) {	
 					for(int i = 0; i < valores.size(); i++) {
 						if(valoresRef.containsKey(valores.get(i))) {
-							header.add(valores.get(i));
+							if(header.size() < 43)
+								header.add(valores.get(i));
 						}else {
 							if(valores.get(0).equals(""))
 								return "Código vazio";
@@ -190,5 +191,9 @@ public class RepositorioDados {
 
 	public HabitosAlimentares getPlanosAlimentares(Integer id){
 		return planos.get(id);
+	}
+	
+	public static void resetRepositorioDados() {
+		instance = null;
 	}
 }

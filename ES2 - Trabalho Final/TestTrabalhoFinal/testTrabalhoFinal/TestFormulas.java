@@ -21,8 +21,8 @@ public class TestFormulas {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		
-		
+		Leitor l = Leitor.iniLeitor();
+		l.lePasta("src/PastasTestesInputs/Inputs_Q_DF_HA_PP");
 	}
 
 	@AfterClass
@@ -39,27 +39,26 @@ public class TestFormulas {
 	
 	@Test
 	public void testGetTMB() throws IOException, EmptyFolderException, MissingFilesException {
-		Leitor l = Leitor.iniLeitor();
-		l.lePasta("src/Inputs_Q_DF_HA_PP");
-		
 		RepositorioUtentes repU = RepositorioUtentes.iniRepositorioUtentes();
-		RepositorioDados rep = RepositorioDados.iniRepositorioDados();
+		
+		System.out.println("TMB");		
+
 		Utente u = repU.checkUtenteID(2);
 		
-		assertEquals("2420.1",Double.toString(repU.getUtentes().get(0).getTMB()));
+		assertTrue(2420.1 == u.getTMB());
 		
 	}
 	
 	@Test
 	public void testGetHarrisB() throws IOException, EmptyFolderException, MissingFilesException {
-		Leitor l = Leitor.iniLeitor();
-		l.lePasta("src/Inputs_Q_DF_HA_PP");
 		
 		RepositorioUtentes repU = RepositorioUtentes.iniRepositorioUtentes();
-		RepositorioDados rep = RepositorioDados.iniRepositorioDados();
+		
+		System.out.println("HarrisB");
+				
 		Utente u = repU.checkUtenteID(2);
 		
-		assertEquals("6292.26",Double.toString(repU.getUtentes().get(0).getHarrisBenedict()));
+		assertTrue(6292.26 == u.getHarrisBenedict());
 		
 	}
 			

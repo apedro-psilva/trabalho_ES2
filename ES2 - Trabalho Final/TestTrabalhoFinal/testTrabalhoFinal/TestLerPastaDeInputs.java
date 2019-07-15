@@ -13,6 +13,7 @@ import org.junit.Test;
 import exceptions.EmptyFolderException;
 import exceptions.MissingFilesException;
 import gestor.Leitor;
+import packageRepositorios.RepositorioUtentes;
 
 public class TestLerPastaDeInputs {
 
@@ -27,6 +28,7 @@ public class TestLerPastaDeInputs {
 
 	@Before
 	public void setUp() throws Exception {
+		RepositorioUtentes.resetRepositorioUtentes();
 	}
 
 	@After
@@ -56,7 +58,7 @@ public class TestLerPastaDeInputs {
 	@Test
 	public void testLerPastaDesInputs_0_0_0_0() throws IOException, EmptyFolderException, MissingFilesException {
 		Leitor l = Leitor.iniLeitor();
-		assertEquals("Não foi fornecida diretoria/diretoria não existe", l.lePasta("src/PastasTestesInputs/Inputs_0_0_0_0"));
+		assertEquals("Pasta especificada está vazia", l.lePasta("src/PastasTestesInputs/Inputs_0_0_0_0"));
 	}
 	
 	@Test
@@ -134,7 +136,7 @@ public class TestLerPastaDeInputs {
 	@Test
 	public void testLerPastaDesInputs_Q_DF_HA_0() throws IOException, EmptyFolderException, MissingFilesException {
 		Leitor l = Leitor.iniLeitor();
-		assertEquals("Plano Prescrito não existe", l.lePasta("src/PastasTestesInputs/Inputs_Q_DF_HA_0"));
+		assertEquals("Ficheiros CSV carregados com sucesso da diretoria.", l.lePasta("src/PastasTestesInputs/Inputs_Q_DF_HA_0"));
 	}
 	
 

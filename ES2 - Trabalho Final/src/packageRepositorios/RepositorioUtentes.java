@@ -18,9 +18,9 @@ public class RepositorioUtentes {
 	}
 	
 	public Utente checkUtenteID(int id) {		
-		for(int i = 0; i < getUtentes().size(); i++) {
-			if(getUtentes().get(i).getId() == id) {
-				return getUtentes().get(i);
+		for(int i = 0; i < utentes.size(); i++) {
+			if(utentes.get(i).getId() == id) {
+				return utentes.get(i);
 			}
 		}
 		return null;
@@ -51,5 +51,9 @@ public class RepositorioUtentes {
 				
 			}
 		}
+	}
+	
+	public static void resetRepositorioUtentes() {
+		instance = null;
 	}
 }

@@ -1,8 +1,12 @@
 package packageHabitosAlimentares;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import gestor.Leitor;
+import packageRepositorios.RepositorioDados;
 
 public class Refeicao {
 	private String tipo;
@@ -59,10 +63,16 @@ public class Refeicao {
 		this.tipo = t;
 	}	
 	
-	public ArrayList<Double> somaNutrientesRefeicao(){
-		ArrayList<Double> resultado = null;
+	public ArrayList<Double> somaNutrientesRefeicao() throws IOException{
+		RepositorioDados rep = RepositorioDados.iniRepositorioDados();
+		Leitor l = Leitor.iniLeitor();
 		
-		for(Produto p: produtos) {
+		if(rep.getTabela().isEmpty())
+			l.tabelaNutricional("src/Auxiliares/tabela_nutricional.txt");
+		
+		ArrayList<Double> resultado = null; 
+		
+		for(Produto p: this.produtos) {
 			if(resultado == null) 
 				resultado = new ArrayList<Double>(p.nutrientesProduto());
 			else {
