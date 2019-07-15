@@ -717,7 +717,7 @@ public class TestLerECarregaDadosFisicos {
 	
 	//------------------------Fator Atividade-----------------------------------------------------------
 	@Test
-	public void testNovoQuestionarioFatorAtividadeInvalido() {
+	public void testNovoDadosFisicosFatorAtividadeInvalido() {
 		DadosFisicos d = new DadosFisicos();
 		valoresReferencia.replace("Fator Atividade", " ");
 		assertEquals("Fator Atividade Inválido", d.novoDadosFisicos(valoresReferencia));
@@ -726,7 +726,7 @@ public class TestLerECarregaDadosFisicos {
 	
 	//------------------------Fator Lesão-----------------------------------------------------------
 	@Test
-	public void testNovoQuestionarioFatorLesãoInvalido() {
+	public void testNovoDadosFisicosFatorLesãoInvalido() {
 		DadosFisicos d = new DadosFisicos();
 		valoresReferencia.replace("Fator Lesão", " ");
 		assertEquals("Fator Lesão Inválido", d.novoDadosFisicos(valoresReferencia));
@@ -735,7 +735,7 @@ public class TestLerECarregaDadosFisicos {
 	
 	//------------------------Fator Térmico-----------------------------------------------------------
 	@Test
-	public void testNovoQuestionarioFatorTérmicoInvalido() {
+	public void testNovoDadosFisicosFatorTérmicoInvalido() {
 		DadosFisicos d = new DadosFisicos();
 		valoresReferencia.replace("Fator Térmico", " ");
 		assertEquals("Fator Térmico Inválido", d.novoDadosFisicos(valoresReferencia));
