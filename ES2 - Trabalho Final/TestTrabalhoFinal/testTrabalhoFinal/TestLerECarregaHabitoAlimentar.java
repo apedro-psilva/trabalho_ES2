@@ -146,14 +146,14 @@ public class TestLerECarregaHabitoAlimentar {
 		
 		@Test 
 		public void testProdutoCalculoNutrientes() throws IOException {
-			
-			
 			Produto p = new Produto();
 			p.novoProduto("IS020", "2", "g");
 			ArrayList<Double> res = new ArrayList<Double>(Arrays.asList(1.86, 7.76, 1.7380000000000002, 0.102, 0.124, 0.084, 0.08800000000000001, 0.084, 0.0, 0.0, 0.0, 0.0, 0.0, 0.066, 0.03, 0.004, 0.006, 0.004, 1.1, 0.001, 1.0, 0.0, 0.0034000000000000002, 0.0022, 0.0012, 0.003, 0.022000000000000002, 0.004, 0.018000000000000002, 0.00148, 0.003, 0.1, 0.1, 0.018600000000000002, 0.74, 2.32, 3.8, 2.8, 0.3, 0.004, 0.013999999999999999));
 			
 			assertTrue(res.containsAll(p.nutrientesProduto()));
 		}
+		
+		
 		//-----------------------------------------------------------------------------------------
 		//-----------------------------Refeiçoes----------------------------------------------------
 		@Test
@@ -399,7 +399,7 @@ public class TestLerECarregaHabitoAlimentar {
 			ArrayList<Produto> listp = new ArrayList<Produto>();
 			ArrayList<Refeicao> listr = new ArrayList<Refeicao>();
 			
-			Produto p = new Produto();
+			Produto p = new	 Produto();
 			p.novoProduto("IS020", "2", "g");
 			listp.add(p);
 			p.novoProduto("IS040", "2", "g");

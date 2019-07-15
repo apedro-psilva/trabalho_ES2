@@ -72,6 +72,7 @@ public class TestOutputs {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		Leitor l = Leitor.iniLeitor();
+		l.tabelaNutricional("src/Auxiliares/tabela_nutricional.txt");
 		l.lePasta("src/PastasTestesInputs/Inputs_Q_DF_HA_PP");
 	}
 

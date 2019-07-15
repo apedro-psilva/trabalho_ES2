@@ -70,6 +70,8 @@ public class Escritor {
 				c++;
 				temp.clear();
 				temp.add(" "); temp.add(" "); 
+				System.out.println("codigo" + p.getCodigo());
+				System.out.println(rep.getTabela().get(p.getCodigo()));
 				temp.add(rep.getTabela().get(p.getCodigo()).get("PRODUTO"));
 				temp.add(p.getQuantidade());
 				temp.add(p.getUnidade());
