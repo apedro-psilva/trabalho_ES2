@@ -21,24 +21,15 @@ public class Utente {
 		if(repUtentes.checkUtenteID(id) != null) 
 			return "Utente já existe";
 		
-		if(!setId(id)) 
-			return "ID Inválido";
+		setId(id);
 		
-		if(!setNome(nome)) 
-			return "Nome Inválido";
+		setNome(nome);
 		
-		
-		if(!setSexo(sexo))
-			return "Sexo Inválido";
-		
-		
-		if(!setIdade(idade)) 
-			return "Idade Inválida";
-		
+		setSexo(sexo);
 
-		if(!setProfissao(profissao)) 
-			return "Profissão Inválida";
-		
+		setIdade(idade);
+
+		setProfissao(profissao);
 		
 		if(!repUtentes.addUtente(this))
 			return "Erro a adicionar Utente ao Repositório de Utentes";
@@ -50,60 +41,40 @@ public class Utente {
 		return this.id;
 	}
 
-	public boolean setId(int i) {
-		if(i < 1) 
-			return false;
-			
-		this.id = i;
-		return true;		
+	public void setId(int i) {
+		this.id = i;		
 	}
 
 	public String getNome() {
 		return this.nome;
 	}
 
-	public boolean setNome(String n) {
-		if(!n.matches(regexNome)) 
-			return false;
-		
+	public void setNome(String n) {
 		this.nome = n;
-		return true;
 	}
 	
 	public String getSexo() {
 		return sexo;
 	}
 
-	public boolean setSexo(String s) {
-		if(!s.equals("Masculino") && !s.equals("Feminino"))
-			return false;
-
+	public void setSexo(String s) {
 		this.sexo = s;
-		return true;
 	}
 
 	public int getIdade() {
 		return this.idade;
 	}
 
-	public boolean setIdade(int i) {
-		if(i < 1 || i > 120) 
-			return false;
-		
+	public void setIdade(int i) {
 		this.idade = i;
-		return true;
 	}
 
 	public String getProfissao() {
 		return this.profissao;
 	}
 
-	public boolean setProfissao(String p) {
-		if(!p.matches(regexNome)) 
-			return false;
-		
+	public void setProfissao(String p) {
 		this.profissao = p;
-		return true;
 	}
 	
 	public double getTMB(){
